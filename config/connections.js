@@ -40,13 +40,13 @@ module.exports.connections = {
   * Run: npm install sails-mysql@for-sails-0.12 --save                       *
   *                                                                          *
   ***************************************************************************/
-  Mysql_React_Server: {
-    adapter: 'sails-mysql',
-    host: 'localhost',
-    user: 'root', //optional
-    password: 'toanprox7', //optional
-    database: 'test' //optional
-  },
+  // Mysql_React_Server: {
+  //   adapter: 'sails-mysql',
+  //   host: 'localhost',
+  //   user: 'root', //optional
+  //   password: 'toanprox7', //optional
+  //   database: 'test' //optional
+  // },
 
   /***************************************************************************
   *                                                                          *
@@ -74,13 +74,12 @@ module.exports.connections = {
   *                                                                          *
   *                                                                          *
   ***************************************************************************/
-  // somePostgresqlServer: {
-  //   adapter: 'sails-postgresql',
-  //   host: 'YOUR_POSTGRES_SERVER_HOSTNAME_OR_IP_ADDRESS',
-  //   user: 'YOUR_POSTGRES_USER', // optional
-  //   password: 'YOUR_POSTGRES_PASSWORD', // optional
-  //   database: 'YOUR_POSTGRES_DB' //optional
-  // }
+ heroku_postgres: {
+  adapter: 'sails-postgresql',
+  url:process.env.DATABASE_URL,
+  ssl:false
+}
+
 
 
   /***************************************************************************
