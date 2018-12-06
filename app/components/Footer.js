@@ -1,9 +1,31 @@
 import React, { Component } from 'react';
 import {Link} from "react-router-dom";
 class Footer extends Component {
+constructor(props) {
+  super(props);
+  this.state={
+    displayFoot:"block"
+  }
+}
+
+  componentWillMount() {
+    var link = window.location.pathname;
+
+    if(link.indexOf('/admin') != -1){
+      // console.log(window.location.href);
+      this.setState({
+        displayFoot:'none'
+      });
+    }else{
+      this.setState({
+        displayFoot:'block'
+      });
+    }
+  }
+
     render() {
         return (
-            <footer>
+            <footer style={{display:this.state.displayFoot}}>
             <div className="top-footer">
               <div className="container">
                 <div className="row">
@@ -28,7 +50,7 @@ class Footer extends Component {
                   </div>
                 </div>
               </div>
-            </div>			
+            </div>
             <div className="info-main-footer">
               <div className="container">
                 <div className="row">
@@ -73,7 +95,7 @@ class Footer extends Component {
                     </div>
                   </div>
                 </div>
-              </div>					
+              </div>
             </div>
             <div className="block-info-contact-footer">
               <div className="container">
@@ -97,7 +119,7 @@ class Footer extends Component {
             </div>
             <div className="empty-last-footer" />
           </footer>
-          
+
         );
     }
 }

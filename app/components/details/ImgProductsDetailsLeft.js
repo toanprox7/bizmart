@@ -26,7 +26,14 @@ const options = {
 class ImgProductsDetailsLeft extends Component {
   constructor(props) {
     super(props);
-    this.state={}
+    this.state={
+
+    }
+  }
+  handleClick(data){
+    this.setState({
+      dataImg:data
+    });
   }
   checkProducts(){
     let {dataProducts} = this.props
@@ -34,7 +41,7 @@ class ImgProductsDetailsLeft extends Component {
       if(dataProducts.image){
         var data = dataProducts.image.split(",");
         return data.map(item => {
-          return  <a key={item.id} className="fancybox-thumb" rel="fancybox-thumb" href={`/images/upload/${item}`} title="Golden Manarola (Sanjeev Deo)">
+          return  <a key={item.id} className="fancybox-thumb" rel="fancybox-thumb" onClick={() => this.handleClick(item)} title="Golden Manarola (Sanjeev Deo)">
           <img src={`/images/upload/${item}`} alt="img-dep" />
          </a>
         })
@@ -54,11 +61,24 @@ class ImgProductsDetailsLeft extends Component {
       return null;
     }
   }
+  componentWillReceiveProps(nextProps) {
+    var data = nextProps.dataProducts.image.split(",");
+    // console.log(nextProps.dataProducts.image,"nextProp")
+    // if(nextProps.image){
+    //
+    //   console.log(data);
+    // }
+
+    this.setState({
+      dataImg:data[0]
+    });
+  }
+
     render() {
       const LinkImg =this.checkProducts();
-      const linkImgMain = this.checkImageMain();
-      const LinkImgLarge = `/images/upload/${linkImgMain}`;
-      const LinkImgSmall = `/images/upload/small/${linkImgMain}`;
+      // const linkImgMain = this.checkImageMain();
+      const LinkImgLarge = `/images/upload/${this.state.dataImg}`;
+      const LinkImgSmall = `/images/upload/small/${this.state.dataImg}`;
 
         return (
 <div className="img-products-zoom">

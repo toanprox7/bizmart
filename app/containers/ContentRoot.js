@@ -5,14 +5,15 @@ import Register from '../components/register/Register';
 import Details from '../components/details/Details';
 import ShoppingCart from '../components/shoppingcart/ShoppingCart';
 import ConstantSecond from './ConstantSecond';
-import AdminTemplate from '../admin';
 import Contacts from '../components/contacts';
+import Admin from "../admin"
 class ContentRoot extends Component {
     render() {
         return (
             <React.Fragment>
             <Switch>
                 <Route path="/login" component={Login}/>
+                <Route path="/admin" component={Admin}/>
                 <Route path="/register" component={Register}/>
                 <Route path="/details/*-:idProducts-:idCategory" component={Details}/>
                 <Route path="/contact" component={Contacts}/>

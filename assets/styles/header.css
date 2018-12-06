@@ -2,6 +2,10 @@
     padding: 0;
     margin: 0;
 }
+.owl-item:nth-child(1) {
+  display: none;
+}
+
 
 ul.dropdown-menu.dropdown-menu-bizmart {
   background: #dc2a3a;
@@ -223,7 +227,7 @@ div#top-menu a {
 }
 
 header.fixed {
-    z-index: 3;
+    z-index: 17;
     /* background: white; */
     width: 100%;
 }
@@ -326,7 +330,7 @@ header .category-fixed{
     color: white;
     /* float: right; */
     right: 0;
-    z-index: 3;
+    z-index: 17;
 }
 
 .block-info-header ul {

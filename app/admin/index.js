@@ -1,15 +1,13 @@
-import React,{Component} from 'react';
-import {Link} from 'react-router-dom';
-import { Admin, Resource,ListGuesser } from 'react-admin';
-import jsonServerProvider from 'ra-data-json-server';
-const dataProvider = jsonServerProvider('http://jsonplaceholder.typicode.com');
-class AdminTemplate extends Component {
+import React, { Component } from 'react';
 
-    render() {
-        return (
-           <h2>Xin chao</h2>
-        );
-    }
+class Admin extends Component {
+  render() {
+    return (
+      <div>
+<h2>testt</h2>
+      </div>
+    );
+  }
 }
 
-export default AdminTemplate;
+export default Admin;

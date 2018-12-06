@@ -9,11 +9,25 @@ class Header extends Component {
   constructor(props) {
     super(props);
     this.state={
-      dataUser:""
+      dataUser:"",
+      displayHead:"block"
     }
   }
 
   componentWillMount() {
+    // console.log(window.location.pathname == '/admin');
+    var link = window.location.pathname;
+
+    if(link.indexOf('/admin') != -1){
+      // console.log(window.location.href);
+      this.setState({
+        displayHead:'none'
+      });
+    }else{
+      this.setState({
+        displayHead:'block'
+      });
+    }
 // console.log("hello2")
     let tokenUser = localStorage.getItem("tokenUser");
     if(tokenUser){
@@ -69,7 +83,7 @@ class Header extends Component {
       var image = (this.state.dataUser != "")?this.state.dataUser.image:"/images/logo.png";
       var username = (this.state.dataUser != "")?this.state.dataUser.username:"Khach";
         return (
-            <header>
+            <header style={{display:this.state.displayHead}}>
             <div id="wrap-full-header">
               <div id="top-menu">
                 <div className="container">

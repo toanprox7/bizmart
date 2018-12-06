@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { BrowserRouter, Route,Switch,Link,NavLink,Redirect } from 'react-router-dom';
 import ViewClient from './containers/ViewClient';
-import AdminTemplate from './admin';
+import Admin from './admin';
 import ViewMain from './containers/ViewMain';
 import Layout from './containers/Layout';
 import ScrollToTop from './components/ScrollToTop';
@@ -17,14 +17,10 @@ class Router extends Component {
     return (
   <React.Fragment>
     <BrowserRouter>
-      <ScrollToTop>
       <Switch>
         <Route path="/" component={ViewClient} />
-        {/* <Redirect exact from="/" to="/home" /> */}
-        <Route path="/admin" component={AdminTemplate}/>
         <Route component={NoMatch} />
       </Switch>
-      </ScrollToTop>
     </BrowserRouter>
   </React.Fragment>
 
