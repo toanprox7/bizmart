@@ -1,0 +1,110 @@
+/* body, nav, ul, li, a  {margin: 0; padding: 0;}
+body {font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; }
+a {text-decoration: none;}
+
+
+.nav-cate {
+    display: block;
+    list-style: none;
+    background: red;
+    background: #dc2a3a;
+}
+
+ul.nav-cate a {
+    font-size: 16px;
+}
+.nav-cate:before,
+.nav-cate:after {
+    content: " ";
+    display: table;
+}
+.nav-cate:after {
+    clear: both;
+}
+.nav-cate ul {
+    list-style: none;
+    display: block;
+    width: 100%;
+}
+.nav-cate a {
+    padding: 10px 15px;
+    color:#fff;
+}
+.nav-cate li {
+    position: relative;
+}
+.nav-cate > li {
+    float: none;
+    border-top: 1px solid #ffffff66;
+}
+.nav-cate > li > .parent {
+    background-image: url("../images/downArrow.png");
+    background-repeat: no-repeat;
+    background-position: 95% 50%;
+}
+
+.nav-cate > li.hover > .parent {
+    background-image: url("../images/rightArrow.png");
+    background-repeat: no-repeat;
+    background-position: 95% 50%;
+}
+ .nav-cate li li .parent {
+        background-image: url("../images/downArrow.png");
+        background-repeat: no-repeat;
+        background-position: 95% 50%;
+    }
+ .nav-cate li li li .parent {
+        background-image: url("../images/downArrow.png") !important;
+        background-repeat: no-repeat;
+        background-position: 95% 50%;
+    }
+
+.nav-cate li li li.hover .parent {
+    background-image: url("../images/rightArrow.png") !important;
+    background-repeat: no-repeat;
+    background-position: 95% 50%;
+}
+
+.nav-cate li li.hover .parent {
+    background-image: url("../images/rightArrow.png");
+    background-repeat: no-repeat;
+    background-position: 95% 50%;
+}
+.nav-cate > li > a {
+    display: block;
+}
+.nav-cate li  ul {
+    position: absolute;
+    left: -9999px;
+}
+.nav-cate > li.hover > ul {
+     position: static;
+    left: 0;
+}
+.nav-cate li li.hover ul {
+     position: static;
+    left: 100%;
+    top: 0;
+}
+.nav-cate li li li.hover ul {
+   display: block;
+}
+.nav-cate li li li ul {
+   display: none;
+}
+
+.nav-cate li li a {
+    display: block;
+    background: #f53142;
+    position: relative;
+    border-top: 1px solid #ffffff66;
+}
+.nav-cate li li li a {
+    background: #ff5564cf;
+    border-top: 1px solid #ffffff66;
+}
+
+.nav-cate li li li li a {
+    background: #ff6565;
+    border-top: 1px solid #ffffff66;
+} */

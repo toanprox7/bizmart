@@ -1,0 +1,22 @@
+<table>
+    <tr>
+        <th>name</th>
+        <th>email</th>
+        <th>state</th>
+        <th></th>
+        <th></th>
+        <th></th>
+        
+    </tr>
+    <% customer.forEach(function(customer){ %>
+    <tr>
+        <td><%= customer.name %></td>
+        <td><%= customer.email %></td>
+        <td><%= customer.state %></td>
+        <td><a href="/customer/show/<%= customer.id %>">Show</a></td>
+        <td><a href="/customer/edit/<%= customer.id %>">Edit</a></td>
+        <td><a href="/customer/destroy/<%= customer.id %>">Delete</a></td>
+        
+    </tr>
+    <% }); %>
+</table>

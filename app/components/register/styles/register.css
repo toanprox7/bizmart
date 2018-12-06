@@ -1,0 +1,318 @@
+*{margin: 0;
+padding: 0;}
+.login-facebook {
+  text-align: center;
+  margin-bottom: 35px;
+}
+span.err-label {
+  position: absolute;
+  top: 15.5%;
+  color: red;
+  padding-left: 10px;
+}
+.input-reg.confirm {
+  position: relative;
+  /* right: 0; */
+  /* top: 24%; */
+}
+
+.input-reg.confirm i {
+  position: absolute;
+  right: -30px;
+  top: 10px;
+}
+.right-reg {
+    padding-top: 108px;
+}
+
+.left-register {
+    padding: 50px 50px 0 100px;
+    /* border-right: 1px solid grey; */
+    box-shadow: 40px 0px 40px #eaeaea;
+    padding-bottom: 40px;
+    padding-left: 18%;
+}
+
+.txt-fb {
+    background: #3b5a99;
+    width: 279px;
+    color: white;
+    text-align: center;
+    font-size: 21px;
+    border-radius: 0 10px 10px 0;
+    border-left: 2px solid #5e77a9;
+    cursor: pointer;
+    box-shadow: 0px 4px 5px #c7c7c7;
+}
+.txt-email {
+    background: #2991c7;
+    width: 279px;
+    color: white;
+    text-align: center;
+    font-size: 21px;
+    border-radius: 0 10px 10px 0;
+    border-left: 2px solid #50a3ce;
+    cursor: pointer;
+    box-shadow: 0px 4px 5px #c7c7c7;
+}
+
+.had-username {
+    font-size: 19px;
+}
+
+.or-register {
+    display: flex;
+    justify-content: center;
+    font-size: 25px;
+    margin: 35px 0;
+    color: #717171;
+}
+
+.button-reg {
+    display: flex;
+    justify-content: center;
+}
+.input-reg.reg-pass i.fa-check-circle {
+  position: absolute;
+  right: 35px;
+  top: 67%;
+}
+.button-reg.button-registe button.button-click {
+    color: #dc2a3a;
+    width: 375px;
+    height: 70px;
+    font-size: 40px;
+    border: 1px solid 403f40;
+    border-radius: 7px;
+    background: #f8f8f8;
+    text-transform: uppercase;
+    text-align: center;
+    line-height: 70px;
+    border: 1px solid #403f40;
+    cursor: pointer;
+}
+.button-reg.button-registe button.button-click:hover{
+  background: #efebeb;
+}
+.button-reg.button-registe button:disabled.button-click {
+  background: #cccccc;
+  color: #666666;
+  cursor:auto;
+  border: 1px solid #999999;
+}
+
+
+.button-reg-email {
+    display: flex;
+    justify-content: center;
+}
+
+.button-reg-fb {
+    display: flex;
+    justify-content: center;
+    height: 70px;
+    line-height: 70px;
+    cursor: pointer;
+    margin-bottom: 25px;
+    /* border: 1px solid; */
+    /* background: red; */
+}
+.button-reg-email {
+    display: flex;
+    justify-content: center;
+    height: 70px;
+    line-height: 70px;
+    cursor: pointer;
+    margin-bottom: 25px;
+    /* border: 1px solid; */
+    /* background: red; */
+}
+.button-reg-fb .fb-circle {
+    width: 100px;
+    border: 1px solid #3b5a99;
+    background: #3b5a99;
+    /* color: white; */
+    text-align: center;
+    line-height: 90px;
+    border-right: 2px solid #374154;
+    border-radius: 10px 0 0 10px;
+    box-shadow: 0px 4px 5px #c7c7c7;
+}
+.button-reg-email .email-circle {
+    width: 100px;
+    border: 1px solid #2991c7;
+    background: #2991c7;
+    /* color: white; */
+    text-align: center;
+    line-height: 90px;
+    border-right: 2px solid #325161;
+    border-radius: 10px 0 0 10px;
+    box-shadow: 0px 4px 5px #c7c7c7;
+}
+
+.button-reg-fb .fb-circle i {
+    width: 60px;
+    height: 60px;
+    border: 1px solid white;
+    /* position: absolute; */
+    background: white;
+    color: #3b5a99;
+    border-radius: 50%;
+    line-height: 60px;
+    text-align: center;
+    font-size: 40px;
+    /* margin: 0 auto; */
+    /* cursor: pointer; */
+}
+.button-reg-email .email-circle i {
+    width: 60px;
+    height: 60px;
+    border: 1px solid white;
+    /* position: absolute; */
+    background: white;
+    color: #2991c7;
+    border-radius: 50%;
+    line-height: 60px;
+    text-align: center;
+    font-size: 40px;
+    /* margin: 0 auto; */
+    /* cursor: pointer; */
+}
+
+.checkbox-reg {
+    display: flex;
+    justify-content: center;
+    padding-bottom: 20px;
+}
+
+.checkbox-reg .rule-bizmart {
+    color: #dc2a3a;
+    font-weight: normal;
+    font-size: 20px;
+}
+
+.register .block-register {
+    background: #f8f8f8;
+    /* padding-bottom: 40px; */
+    margin-bottom: 90px;
+}
+
+.register .top-register {
+    display: flex;
+    justify-content: space-between;
+    padding-bottom: 30px;
+    align-items: center;
+    margin-top: 38px;
+}
+.register .input-reg {
+  margin-bottom: 42px;
+}
+.register .block-register .left-register .input-reg input {
+    width: 100%;
+    /* margin-bottom: 42px; */
+    height: 45px;
+    border: 1px solid #b7b7b7;
+    padding-left: 20px;
+}
+
+.register .block-register .left-register .input-reg .send-code input {
+    display: flex;
+    /* width: 90%; */
+    border-right: none;
+}
+
+.register .block-register .left-register .input-reg .send-code {
+    display: flex;
+}
+
+.register .block-register .left-register .input-reg .send-code .button-SendSms {
+    height: 45px;
+    width: 20%;
+    background: #dc2a3a;
+    border: 1px solid #b7b7b7;
+    border-left: none;
+    color: white;
+    font-size: 15px;
+    line-height: 45px;
+    text-align: center;
+    cursor: pointer;
+    /* margin: 0; */
+    /* padding: 0; */
+}
+.register .block-register .left-register .input-reg .send-code .button-SendSms:hover{
+  background: #ce1e2e;
+}
+.register .top-register .had-username span {
+    border-right: 1px solid grey;
+    padding-right: 13px;
+}
+
+.register .top-register .had-username a {
+    padding-left: 8px;
+    color: #007d90;
+}
+
+.register .top-register .title-register h3 {
+    margin: 0;
+    color: #dc2a3a;
+    font-size: 33px;
+}
+@media only screen and (max-width: 1024px) {
+    .register .top-register .title-register h3{
+        font-size: 25px;
+    }
+    .register .top-register .had-username span{
+        font-size: 13px;
+    }
+    .register .top-register .had-username a{
+        font-size: 13px;
+    }
+    .register .top-register {
+    display: flex;
+   flex-direction: column;
+}
+.checkbox-reg label {
+    color: #dc2a3a;
+    font-weight: normal;
+    font-size: 13px;
+}
+.or-register{
+    font-size: 20px;
+}
+.button-reg.button-registe .button-click {
+    color: #dc2a3a;
+    width: 375px;
+    height: 60px;
+    font-size: 30px;
+    border: 1px solid #403f40;
+    border-radius: 7px;
+    background: #f8f8f8;
+    text-transform: uppercase;
+    line-height: 60px;
+    text-align: center;
+    cursor: pointer;
+
+}
+.button-reg.button-registe .button-click:hover{
+  background: #efebeb;
+
+}
+.register .block-register .left-register .input-reg.send-code button {
+    height: 35px;
+    width: 20%;
+    background: #dc2a3a;
+    border: 1px solid #b7b7b7;
+    border-left: none;
+    color: white;
+    font-size: 12px;
+    /* margin: 0; */
+    /* padding: 0; */
+}
+.register .block-register .left-register .input-reg input {
+    width: 100%;
+    margin-bottom: 25px;
+    height: 35px;
+    border: 1px solid #b7b7b7;
+    padding-left: 20px;
+}
+}

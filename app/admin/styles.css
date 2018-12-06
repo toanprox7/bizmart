@@ -1,0 +1,11 @@
+header{
+    display: none;
+    /* visibility: hidden; */
+}
+footer{
+    display: none;
+    /* visibility: hidden; */
+}
+.admin{
+font-size: 14px;
+}
