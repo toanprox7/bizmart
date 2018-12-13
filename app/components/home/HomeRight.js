@@ -14,6 +14,7 @@ class HomeRight extends Component {
   }
 
     render() {
+      // console.log(this.props.dataProducts,"Sa");
         return (
             <React.Fragment>
                 <ProductsSale dataProducts={this.props.dataProducts} />

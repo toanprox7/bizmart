@@ -7,6 +7,7 @@ import ShoppingCart from '../components/shoppingcart/ShoppingCart';
 import ConstantSecond from './ConstantSecond';
 import Contacts from '../components/contacts';
 import Admin from "../admin"
+import SearchProducts from "../components/search/SearchProducts";
 class ContentRoot extends Component {
     render() {
         return (
@@ -19,10 +20,11 @@ class ContentRoot extends Component {
                 <Route path="/contact" component={Contacts}/>
                 <Route path="/shopping-cart" component={ShoppingCart}/>
                 <Route path="/" component={ConstantSecond}/>
-                <Route path="/products/*-idCategory" component={ConstantSecond}/>
+                <Route path="/products/*-idCategory/:idPage/:price" component={ConstantSecond}/>
                 <Route path="/post-new" component={ConstantSecond}/>
                 <Route path="/update-user" component={ConstantSecond}/>
-
+                <Route path="/products-sale/:idPage/:price" component={ConstantSecond}/>
+                <Route path="/products-search/:textSearch/:idPage/:price" component={SearchProducts} />
             </Switch>
             </React.Fragment>
         );

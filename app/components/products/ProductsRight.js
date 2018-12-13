@@ -34,7 +34,9 @@ checkName(){
           <div className="top-products-right">
             <h4>Sản Phẩm {this.checkName()}</h4>
           </div>
-         <ListProductsRight id={this.props.match.params.idCategory}/>
+         <ListProductsRight idPage={this.props.match.params.idPage}
+         price={this.props.match.params.price}
+         id={this.props.match.params.idCategory}/>
         </div>
         );
     }

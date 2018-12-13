@@ -82,6 +82,7 @@ class ImgProductsDetailsLeft extends Component {
 
         return (
 <div className="img-products-zoom">
+<div className="img-main-one">
 <ReactImageMagnify {...{
     smallImage: {
         alt: 'Wristwatch by Ted Baker London',
@@ -96,6 +97,8 @@ class ImgProductsDetailsLeft extends Component {
     },
     style:{zIndex:13}
 }} />
+</div>
+
   {/* <div className="img-zoom-main">
     <a className="fancybox-thumb" rel="fancybox-thumb" href={`/images/upload/${linkImgMain}`} title="Golden Manarola (Sanjeev Deo)">
       <img className="img-responsive" id="img_01" src={`/images/upload/small/${linkImgMain}`} data-zoom-image={`/images/upload/${linkImgMain}`} />

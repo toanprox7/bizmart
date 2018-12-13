@@ -6,7 +6,7 @@ class ProductsSale extends Component {
         return (
             <div className="main-products-right">
             <div className="top-products-right">
-              <span className="text-right"><a href="#">Xem Thêm</a></span>
+              <span className="text-right"><a href="/products-sale/1/0">Xem Thêm</a></span>
               <h4>Sản Phẩm Giá Sốc</h4>
             </div>
            <ListProductsSale dataProducts={this.props.dataProducts}/>

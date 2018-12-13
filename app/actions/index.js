@@ -18,7 +18,9 @@ export const addDataImageLocal = getDataImageLocal => ({
 })
 
 export const GET_DATA_PRODUCTS_LOCAL = "GET_DATA_PRODUCTS_LOCAL";
-export const addDataProductsLocal = getDataProductsLocal => ({
+export const addDataProductsLocal = getDataProductsLocal => (
+  // console.log(getDataProductsLocal,"actions"),
+  {
   type:GET_DATA_PRODUCTS_LOCAL,
   getDataProductsLocal
 })

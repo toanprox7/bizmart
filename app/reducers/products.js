@@ -1,5 +1,5 @@
 import {GET_DATA_IMAGE_LOCAL,GET_DATA_PRODUCTS_LOCAL} from "../actions";
-import {FETCH_PRODUCT_BY_ID_SUCCESS,FETCH_ALL_PRODUCTS_BY_ID_CATEGORY_SUCCESS} from "../actions/actionTypes";
+import {FETCH_ALL_PRODUCTS,FETCH_PRODUCT_BY_ID_SUCCESS,FETCH_ALL_PRODUCTS_BY_ID_CATEGORY_SUCCESS} from "../actions/actionTypes";
 const productsInitialState = {
   dataImageLocal:[
   ],
@@ -24,7 +24,9 @@ const productsReducer = (state = productsInitialState, action) => {
         }
 
         case GET_DATA_PRODUCTS_LOCAL:
+        // console.log(action.getDataProductsLocal);
         return {dataProductsLocal: [ ...state.dataProductsLocal, action.getDataProductsLocal]}
+
         case "FETCH_PRICE_PRODUCTS":
         return  {
           fetchPriceProducts: [
@@ -74,3 +76,14 @@ export const productsCategoryReducer = (state = [], action) => {
       return state;
   }
 };
+export const productsAllReducer = (state = [], action) => {
+  switch (action.type) {
+    // Handle fetch by Id
+    case FETCH_ALL_PRODUCTS:
+      return action.ProductsAll;
+    default:
+      return state;
+  }
+};
+
+

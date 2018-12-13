@@ -11,7 +11,7 @@ class ConstantProductsPrice extends Component {
     }
 
   }
-componentWillMount() {
+// componentWillMount() {
 
   // var self=this;
   // axios.get(`/productsapi/getAllProductsById?categoryId=${this.props.match.params.idCategory}&sort=createdAt+desc`)
@@ -23,40 +23,50 @@ componentWillMount() {
   //   }).catch(function (err) {
   //     console.log(err);
   //   })
-  this.props.fetchAllProductsCategoryId(this.props.match.params.idCategory);
-}
-componentWillReceiveProps(nextProps) {
-  this.setState({
-    data:nextProps.data
-  });
-}
+  // this.props.fetchAllProductsCategoryId(this.props.match.params.idCategory);
+// }
+// componentWillReceiveProps(nextProps) {
+//   this.setState({
+//     data:nextProps.data
+//   });
+// }
 
-checkPrice(start,end){
-  if(this.state.data){
-    var arrayNew=[];
-     this.state.data[0].map(item => {
+// checkPrice(start,end){
+//   if(this.state.data){
+//     var arrayNew=[];
+//      this.state.data[0].map(item => {
 
-     if(item.price >= start && item.price <=end){
+//      if(item.price >= start && item.price <=end){
 
-        arrayNew.push(item);
-        // return arrayNew;
-     }
+//         arrayNew.push(item);
+//         // return arrayNew;
+//      }
 
-   })
-   return arrayNew;
-  }else{
-    return null
-  }
-}
+//    })
+//    return arrayNew;
+//   }else{
+//     return null
+//   }
+// }
 
 handleCheck(startl,endl){
-  this.props.activePageChange({activePage:true})
-  var checkPrice= this.checkPrice(startl,endl);
-  if(checkPrice != null){
-   return this.props.fetchAllPriceProducts2(checkPrice)
-  }else{
-    return null
-  }
+// console.log(startl,endl);
+var linkPage = window.location.href;
+if(linkPage.indexOf('/products-search/') != -1){
+let textSearch =this.props.match.params.textSearch;
+  this.props.history.push(`/products-search/${textSearch}/1/${startl}-${endl}`);
+  window.location.reload();
+}else if(linkPage.indexOf('/products-sale/') != -1){
+  this.props.history.push(`/products-sale/1/${startl}-${endl}`);
+  window.location.reload();
+}else if(linkPage.indexOf('/products/') != -1){
+// console.log(this.props.match.params.0);
+let obj=this.props.match.params;
+let textCategory =obj[Object.keys(obj)[0]];
+  this.props.history.push(`/products/${textCategory}-${this.props.match.params.idCategory}/1/${startl}-${endl}`);
+  window.location.reload();
+}
+//  this.props.history.push()
 }
 
     render() {

@@ -5,7 +5,10 @@ class ProductsPriceOutside extends Component {
     render() {
         return (
             <Switch>
-               <Route path="/products/*-:idCategory" component={ConstantProductsPrice} />
+               <Route path="/products/*-:idCategory/:idPage/:price" component={ConstantProductsPrice} />
+               <Route path="/products-sale/:idPage/:price" component={ConstantProductsPrice} />
+               <Route path="/products-search/:textSearch/:idPage/:price" component={ConstantProductsPrice} />
+
             </Switch>
         );
     }

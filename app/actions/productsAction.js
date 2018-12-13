@@ -1,5 +1,5 @@
 import Axios from 'axios';
-import {FETCH_PRODUCT_BY_ID_SUCCESS,FETCH_ALL_PRODUCTS_BY_ID_CATEGORY_SUCCESS} from "./actionTypes";
+import {FETCH_ALL_PRODUCTS,FETCH_PRODUCT_BY_ID_SUCCESS,FETCH_ALL_PRODUCTS_BY_ID_CATEGORY_SUCCESS} from "./actionTypes";
 const apiUrl = '/productsapi';
 export const fetchProductByIdSuccess = (product) => {
   return {
@@ -77,6 +77,28 @@ export const fetchAllProductsCategoryId=(idCategory) => {
         // Dispatch another action
         // to consume data
         dispatch(fetchAllProductsByCategoryIdSuccess(response.data))
+      })
+      .catch(error => {
+        throw(error);
+      });
+  };
+}
+
+export const fetchAllProductsSuccess = (ProductsAll) => {
+  return {
+    type: FETCH_ALL_PRODUCTS,
+    ProductsAll
+  }
+};
+
+export const fetchAllProducts=()=>{
+  return (dispatch) => {
+    // Returns a promise
+    return Axios.get(`/productsapi?skip=0&limit=10&sort=createdAt+desc`)
+      .then(response => {
+        // Dispatch another action
+        // to consume data
+        dispatch(fetchAllProductsSuccess(response.data))
       })
       .catch(error => {
         throw(error);

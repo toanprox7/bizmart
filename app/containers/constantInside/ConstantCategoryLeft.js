@@ -62,7 +62,7 @@ class ConstantCategoryLeft extends Component {
       if(data.length > 0 && typeof data !== "undefined"){
         return data.map(item => {
           return item.map((item2,index) => {
-            return <li key={item2.id}><i data-toggle="collapse" href={`#collapse${item2.id}`}class="fa fa-chevron-down"></i><a href={`/products/${this.ChangeToSlug(item2.name)}-${item2.id}`}>{item2.name}</a><ul id={`collapse${item2.id}`} className="collapse">{this.mapping(item2.parentId)}</ul></li>
+            return <li key={item2.id}><i data-toggle="collapse" href={`#collapse${item2.id}`}class="fa fa-chevron-down"></i><a href={`/products/${this.ChangeToSlug(item2.name)}-${item2.id}/1/0`}>{item2.name}</a><ul id={`collapse${item2.id}`} className="collapse">{this.mapping(item2.parentId)}</ul></li>
           })
         })
       }else{

@@ -2,7 +2,7 @@ import { combineReducers } from 'redux'
 import loginReducer from "./login";
 import usersReducer,{userReducer} from "./users";
 import categoryReducer,{categorysReducer} from "./category";
-import productsReducer,{productReducer,productsCategoryReducer,PriceProductsReducer} from "./products";
+import productsReducer,{productsAllReducer,productReducer,productsCategoryReducer,PriceProductsReducer} from "./products";
 import {ratingsReducer,ratingsProductReducer} from "./rating";
 
 export default combineReducers({
@@ -16,5 +16,6 @@ export default combineReducers({
   productsCategoryReducer,
   ratingsProductReducer,
   categorysReducer,
-  PriceProductsReducer
+  PriceProductsReducer,
+  productsAllReducer
 })

@@ -11,44 +11,75 @@ class PaginationProductsRight extends Component {
     }
   }
   componentDidMount() {
-    var self = this;
-    axios.get(`/productsapi/getAllProductsById?categoryId=${this.props.id}&sort=createdAt+desc`)
+    var price = this.props.price;
+    if(price != 0){
+    let pageNumber =this.props.idPage;
+    let skipStart = (pageNumber - 1) * 12;
+    let getStt = price.indexOf('-');
+    let start = price.slice(0,getStt);
+    let end = price.slice(getStt+1,price.length);
+    let self = this;
+    axios.post(`/productsapi/getAllProductsById`,{categoryId:this.props.id,skip:skipStart,price:{ '>=': parseInt(start),'<=': parseInt(end) },limit:12})
       .then(function (res) {
+        // console.log(res);
         self.setState({
           totalProducts:res.data
-        });
-      }).catch(function (err) {
-        console.log(err);
-      })
-
-  }
-  handlePageChange(pageNumber) {
-    // console.log(this.props.ratings.length)
-    // console.log(`active page is ${pageNumber}`);
-    this.props.activePageChange({activePage:false})
-    this.setState({activePage: pageNumber});
-    var skipStart = (pageNumber - 1) * 12;
-    var endPage = skipStart+12;
-    if(this.props.dataPriceProducts.length >0){
-      var arrayData=[]
-      this.props.dataPriceProducts.map((item,index) => {
-        if(index < endPage && index >= skipStart){
-          arrayData.push(item);
-        }else{
-          return null
-        }
-        return this.props.handleDataPaginate(arrayData)
-      })
-    }else{
-      var self = this;
-      axios.get(`/productsapi/getAllProductsById?categoryId=${this.props.id}&skip=${skipStart}&limit=12&sort=createdAt+desc`)
-        .then(function (res) {
-          self.props.handleDataPaginate(res.data)
-        }).catch(function (err) {
-          console.log(err);
         })
+    }).catch(function (err) {
+      console.log(err);
+    })
+    }else if(price == 0){
+      let pageNumber =this.props.idPage;
+      let skipStart = (pageNumber - 1) * 12;
+      let self =this;
+      axios.post(`/productsapi/getAllProductsById`,{categoryId:this.props.id,skip:skipStart,limit:12})
+      .then(function (res) {
+        // console.log(res);
+        self.setState({
+          totalProducts:res.data
+        })
+    }).catch(function (err) {
+      console.log(err);
+    })
     }
+  }
+  // handlePageChange(pageNumber) {
+  //   // console.log(this.props.ratings.length)
+  //   // console.log(`active page is ${pageNumber}`);
+  //   this.props.activePageChange({activePage:false})
+  //   this.setState({activePage: pageNumber});
+  //   var skipStart = (pageNumber - 1) * 12;
+  //   var endPage = skipStart+12;
+  //   if(this.props.dataPriceProducts.length >0){
+  //     var arrayData=[]
+  //     this.props.dataPriceProducts.map((item,index) => {
+  //       if(index < endPage && index >= skipStart){
+  //         arrayData.push(item);
+  //       }else{
+  //         return null
+  //       }
+  //       return this.props.handleDataPaginate(arrayData)
+  //     })
+  //   }else{
+  //     var self = this;
+  //     axios.get(`/productsapi/getAllProductsById?categoryId=${this.props.id}&skip=${skipStart}&limit=12&sort=createdAt+desc`)
+  //       .then(function (res) {
+  //         self.props.handleDataPaginate(res.data)
+  //       }).catch(function (err) {
+  //         console.log(err);
+  //       })
+  //   }
 
+  // }
+  handlePageChange(pageNumber) {
+    this.handleRedirect(pageNumber);
+  }
+
+  handleRedirect(numberPage){
+    var linkProducts = window.location.pathname;
+    let textCategory = linkProducts.slice(linkProducts.indexOf('/products/')+10, linkProducts.indexOf(`/${this.props.idPage}/`));
+    this.props.history.push(`/products/${textCategory}/${numberPage}/${this.props.price}`);
+    window.location.reload();
   }
   checkTotal(){
     if(this.state.totalProducts){
@@ -57,22 +88,22 @@ class PaginationProductsRight extends Component {
       return null;
     }
   }
-  componentWillReceiveProps(nextProps) {
-    // console.log(nextProps,"pagination");
-    if(nextProps.dataPriceProducts && nextProps.dataPriceProducts.length >0){
-      this.setState({
-        totalProducts:nextProps.dataPriceProducts
-      });
-    }
-    if(nextProps.activePageData !== null && nextProps.activePageData != undefined){
-      if(nextProps.activePageData.activePage == true){
-        this.setState({
-          activePage:1
-        });
-      }
+  // componentWillReceiveProps(nextProps) {
+  //   // console.log(nextProps,"pagination");
+  //   if(nextProps.dataPriceProducts && nextProps.dataPriceProducts.length >0){
+  //     this.setState({
+  //       totalProducts:nextProps.dataPriceProducts
+  //     });
+  //   }
+  //   if(nextProps.activePageData !== null && nextProps.activePageData != undefined){
+  //     if(nextProps.activePageData.activePage == true){
+  //       this.setState({
+  //         activePage:1
+  //       });
+  //     }
 
-    }
-  }
+  //   }
+  // }
 
   render() {
     return (

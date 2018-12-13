@@ -6,10 +6,12 @@ import {Provider} from 'react-redux';
 import configureStore from './store';
 import * as ratingsAction from './actions/ratingsAction';
 import * as categorysAction from './actions/categorysAction';
+import * as productsAction from './actions/productsAction';
 
 const store = configureStore();
 store.dispatch(ratingsAction.fetchRatings());
 store.dispatch(categorysAction.fetchCategorys());
+store.dispatch(productsAction.fetchAllProducts());
 
 ReactDOM.render(
 <Provider store={store}>

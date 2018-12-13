@@ -40,7 +40,7 @@ module.exports.connections = {
   * Run: npm install sails-mysql@for-sails-0.12 --save                       *
   *                                                                          *
   ***************************************************************************/
-  // Mysql_React_Server: {
+  // bizmart_mysql: {
   //   adapter: 'sails-mysql',
   //   host: 'localhost',
   //   user: 'root', //optional
@@ -74,11 +74,11 @@ module.exports.connections = {
   *                                                                          *
   *                                                                          *
   ***************************************************************************/
- heroku_postgres: {
-  adapter: 'sails-postgresql',
-  url:process.env.DATABASE_URL,
-  ssl:false
-}
+//  heroku_postgres: {
+//   adapter: 'sails-postgresql',
+//   url:process.env.DATABASE_URL,
+//   ssl:false
+// }
 
 
 

@@ -4,13 +4,19 @@ import {connect} from "react-redux";
 import {addDataUserLocal} from "../actions";
 import {addDataCategoryLocal} from "../actions";
 import axios from "axios";
+import ItemSearch from "./ItemSearch";
+import { withRouter } from "react-router-dom";
+var _ = require('lodash');
 var jwt = require("jsonwebtoken");
 class Header extends Component {
   constructor(props) {
     super(props);
     this.state={
       dataUser:"",
-      displayHead:"block"
+      displayHead:"block",
+      disPlaySearch:"hidden",
+      dataSearch:[],
+      textSearch:""
     }
   }
 
@@ -43,9 +49,6 @@ class Header extends Component {
           }).catch(function (err) {
             console.log(err)
           })
-            // console.log(decoded);
-
-
         });
       }else{
         this.setState({
@@ -75,10 +78,59 @@ class Header extends Component {
   }
   handleLogout=()=>{
     localStorage.removeItem("tokenUser");
-    window.location.reload();
   }
-
-
+  handleSearch=_.debounce((text) => {
+    var self=this;
+    // e.preventDefault();
+    // var name = e.target.name;
+    // var value = e.target.value;
+    // _.debounce((e) => {
+    //   console.log('Debounced Event:', e);
+    // }, 1000)
+    // console.log('Debounced Event:', text,name);
+    var infoSearch={
+      title:{contains:text},
+      limit:6
+    }
+    axios.post("/productsapi/findProducts",infoSearch).then(function (res) {
+      self.setState({
+        dataSearch:res.data.data
+      });
+    }).catch(function (err) {
+      console.log(err);
+    })
+    if(text.length != 0){
+      this.setState({
+        disPlaySearch:"visible",
+        textSearch:text
+      });
+    }else{
+      this.setState({
+        disPlaySearch:"hidden"
+      });
+    }
+    // var resultBuffer = encoding.convert("test thu ty xem sao", 'ASCII', 'UTF-8');
+// console.log(resultBuffer);
+  },10)
+checkMap(){
+ if(this.state.dataSearch.length != 0){
+  return this.state.dataSearch.map((item,index) => {
+    return <ItemSearch key={index} data={item} />
+  })
+ }else{
+   return null;
+ }
+}
+handleClickSearchBtn(e){
+  // var self = this;
+  e.preventDefault();
+  if(this.state.textSearch != ""){
+    this.props.history.push(`/products-search/${this.state.textSearch}/1/0`);
+    window.location.reload();
+  }else{
+    return alert("No empty");
+  }
+}
     render() {
       var image = (this.state.dataUser != "")?this.state.dataUser.image:"/images/logo.png";
       var username = (this.state.dataUser != "")?this.state.dataUser.username:"Khach";
@@ -98,7 +150,7 @@ class Header extends Component {
                       <ul className="dropdown-menu dropdown-menu-bizmart">
                         <li><a href="/update-user">Cập nhật thông tin</a></li>
                         <li className="divider" />
-                        <li><Link onClick={this.handleLogout} to="/">Đăng xuất</Link></li>
+                        <li><a onClick={this.handleLogout} href="/">Đăng xuất</a></li>
                       </ul>
                     </div>
 
@@ -126,14 +178,22 @@ class Header extends Component {
                       </a>
                     </div>
                     <div className="search">
-                      <div className="input-group">
-                        <input type="text" className="form-control" placeholder="Hôm nay bạn muốn mua gì?" />
+                    <div className="input-group">
+                        <input type="text" className="form-control" name="name" onChange={e => this.handleSearch(e.target.value,e.target.name)} placeholder="Hôm nay bạn muốn mua gì?" />
                         <div className="input-group-btn">
-                          <button className="btn btn-default" type="submit">
+                          <button onClick={e => this.handleClickSearchBtn(e)} className="btn btn-default" type="submit">
                             <i className="glyphicon glyphicon-search" />
                           </button>
+
                         </div>
                       </div>
+                      <div style={{visibility:this.state.disPlaySearch}} className="block-search-bottom">
+                          {this.checkMap()}
+                        <div className="see-more">
+                          <a onClick={e => this.handleClickSearchBtn(e)} >Xem thêm</a>
+                        </div>
+                      </div>
+
                     </div>
 
                     <div className="icon-across-header">
@@ -144,9 +204,9 @@ class Header extends Component {
                         <li><a href="/post-new">Đăng Tin Mới</a></li>
                       </ul>
                     </div>
-                    <div className="shopping-cart">
+                    {/* <div className="shopping-cart"> */}
                     {/* <Link to="shopping-cart"><i className="fa fa-cart-arrow-down"><span>1</span></i></Link> */}
-                    </div>
+                    {/* </div> */}
                   </div>
                 </div>
                 <div className="setting-header-icon-hidden">
@@ -155,9 +215,9 @@ class Header extends Component {
               </div>
               <div className="block-info-header">
                 <ul>
-                  <li><NavLink to="/login">Đăng Nhập</NavLink></li>
-                  <li><NavLink to="/register">Đăng Ký</NavLink></li>
-                  <li><NavLink to="/post-new">Đăng Tin Mới</NavLink></li>
+                  <li><a href="/login">Đăng Nhập</a></li>
+                  <li><a href="/register">Đăng Ký</a></li>
+                  <li><a href="/post-new">Đăng Tin Mới</a></li>
                 </ul>
               </div>
               <div className="category-fixed">
@@ -234,4 +294,4 @@ const mapStateToProps = (state) => {
     getStateDataUserLocal: state.usersReducer.dataUserLocal
   }
 }
-export default connect(mapStateToProps, mapDispatchToProps)(Header)
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Header));

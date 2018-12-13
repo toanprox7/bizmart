@@ -2,6 +2,16 @@
     margin:0;
     padding: 0;
 }
+img.img-item{
+  width: 100%;
+}
+.thumbnail .wrap-img{
+  width: 100%;
+  height: 273px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+}
 
 .category-home .title-category-home h3 {
     color: white;
@@ -117,6 +127,13 @@ div#banner img {
     height: 402px;
 }
 @media only screen and (max-width: 991px) {
+  .thumbnail .wrap-img {
+    width: 100%;
+    /* height: 220px; */
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+}
     #banner{
         display: none;
     }
@@ -163,5 +180,12 @@ div#banner img {
     div#banner img {
     width: 100%;
     height: 280px;
+}
+.thumbnail .wrap-img {
+  width: 100%;
+  height: 220px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
 }
 }

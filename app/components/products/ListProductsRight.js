@@ -8,43 +8,64 @@ class ListProductsRight extends Component {
     super(props);
     this.state={}
   }
-  componentDidMount() {
+  componentWillMount() {
     // console.log(this.props.id)
-    var self=this;
-    axios.get(`/productsapi/getAllProductsById?categoryId=${this.props.id}&skip=0&limit=12&sort=createdAt+desc`)
+    var price = this.props.price;
+    if(price != 0){
+      let pageNumber =this.props.idPage;
+      let skipStart = (pageNumber - 1) * 12;
+      let getStt = price.indexOf('-');
+      let start = price.slice(0,getStt);
+      let end = price.slice(getStt+1,price.length);
+      let self =this;
+      axios.post(`/productsapi/getAllProductsById`,{categoryId:this.props.id,skip:skipStart,price:{ '>=': parseInt(start),'<=': parseInt(end) },limit:12})
       .then(function (res) {
+        // console.log(res);
         self.setState({
           dataCategory:res.data
         })
-        // self.props.dataProducts(res.data);
     }).catch(function (err) {
       console.log(err);
     })
-
-  }
-  componentWillReceiveProps(nextProps) {
-    // console.log(nextProps);
-    if(nextProps.dataPriceProducts){
-      var arrayNew=[];
-      nextProps.dataPriceProducts.map((item,index) => {
-        if(index <12 && index >=0){
-          arrayNew.push(item);
-        }else{
-          return null
-        }
-      })
-
-      return this.setState({
-        dataCategory:arrayNew
-      });
+    }else if(price == 0){
+      let pageNumber =this.props.idPage;
+      let skipStart = (pageNumber - 1) * 12;
+      let self =this;
+      axios.post(`/productsapi/getAllProductsById`,{categoryId:this.props.id,skip:skipStart,limit:12})
+      .then(function (res) {
+        // console.log(res);
+        self.setState({
+          dataCategory:res.data
+        })
+    }).catch(function (err) {
+      console.log(err);
+    })
     }
-  }
 
-  handleDataPaginate(dataPaginate){
-    this.setState({
-      dataCategory:dataPaginate
-    });
   }
+  // componentWillReceiveProps(nextProps) {
+  //   // console.log(nextProps);
+  //   if(nextProps.dataPriceProducts){
+  //     var arrayNew=[];
+  //     nextProps.dataPriceProducts.map((item,index) => {
+  //       if(index <12 && index >=0){
+  //         arrayNew.push(item);
+  //       }else{
+  //         return null
+  //       }
+  //     })
+
+  //     return this.setState({
+  //       dataCategory:arrayNew
+  //     });
+  //   }
+  // }
+
+  // handleDataPaginate(dataPaginate){
+  //   this.setState({
+  //     dataCategory:dataPaginate
+  //   });
+  // }
 
   checkData(){
     if(this.state.dataCategory){
@@ -62,7 +83,9 @@ class ListProductsRight extends Component {
             <div className="row">
               {this.checkData()}
             </div>
-            <PaginationProductsRight id={this.props.id} handleDataPaginate={(dataPaginate)=>{this.handleDataPaginate(dataPaginate)}}/>
+            <PaginationProductsRight idPage={this.props.idPage}
+            price={this.props.price}
+            id={this.props.id} handleDataPaginate={(dataPaginate)=>{this.handleDataPaginate(dataPaginate)}}/>
           </div>
         );
     }

@@ -34,6 +34,15 @@ module.exports = {
               console.log(data);
             }
           })
+  },
+  findProducts:function (req,res,next) {
+    Productsapi.find(req.params.all(), function (err,data) {
+      if(err) return res.serverError(err);
+      return res.json({
+        message:'successfully!',
+        data: data
+      })
+    })
   }
 
 };
