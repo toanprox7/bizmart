@@ -25,7 +25,6 @@ class Header extends Component {
     var link = window.location.pathname;
 
     if(link.indexOf('/admin') != -1){
-      // console.log(window.location.href);
       this.setState({
         displayHead:'none'
       });
@@ -121,12 +120,18 @@ checkMap(){
    return null;
  }
 }
+
+_handleKeyPress = (e) => {
+  if (e.key === 'Enter') {
+    this.handleClickSearchBtn();
+  }
+}
 handleClickSearchBtn(e){
   // var self = this;
-  e.preventDefault();
   if(this.state.textSearch != ""){
-    this.props.history.push(`/products-search/${this.state.textSearch}/1/0`);
     window.location.reload();
+    this.props.history.push(`/products-search/${this.state.textSearch}/1/0`);
+
   }else{
     return alert("No empty");
   }
@@ -135,7 +140,7 @@ handleClickSearchBtn(e){
       var image = (this.state.dataUser != "")?this.state.dataUser.image:"/images/logo.png";
       var username = (this.state.dataUser != "")?this.state.dataUser.username:"Khach";
         return (
-            <header style={{display:this.state.displayHead}}>
+            <header id="head9009" style={{display:this.state.displayHead}}>
             <div id="wrap-full-header">
               <div id="top-menu">
                 <div className="container">
@@ -167,19 +172,19 @@ handleClickSearchBtn(e){
                 <div className="category-list-icon-hidden">
                   <span><Link to="#" className="nav-button">Menu</Link></span>
                 </div>
-                <div className="container main-header">
+                <div className="container main-header-bizmart">
                   <div className="search-menu-aside">
                     <div className="icon-search-hidden">
                       <span><i className="fa fa-search" /></span>
                     </div>
-                    <div className="logo">
+                    <div className="logo-bizmart">
                       <a href="/">
                         <img src="/images/logo_bizmart.png" width="200px" className="img-thumbnail" alt="logo" />
                       </a>
                     </div>
                     <div className="search">
                     <div className="input-group">
-                        <input type="text" className="form-control" name="name" onChange={e => this.handleSearch(e.target.value,e.target.name)} placeholder="Hôm nay bạn muốn mua gì?" />
+                        <input onKeyPress={(e) => this._handleKeyPress(e)} type="text" className="form-control" name="name" onChange={e => this.handleSearch(e.target.value,e.target.name)} placeholder="Hôm nay bạn muốn mua gì?" />
                         <div className="input-group-btn">
                           <button onClick={e => this.handleClickSearchBtn(e)} className="btn btn-default" type="submit">
                             <i className="glyphicon glyphicon-search" />

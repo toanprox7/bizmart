@@ -193,7 +193,7 @@ hr.across-red-header{
 header.fixed hr.across-red-header {
     display: none;
 }
-.logo {
+.logo-bizmart {
     /* max-height: 30px; */
     line-height: -19px;
     margin-top: -15px;
@@ -201,7 +201,7 @@ header.fixed hr.across-red-header {
 }
 
 
-.logo img.img-thumbnail {
+.logo-bizmart img.img-thumbnail {
     border: none;
     /* height: 147px; */
 }
@@ -308,7 +308,7 @@ header.fixed div#wrap-header-search-menu {
     border-bottom: 1px solid #dc2a3a;
 }
 
-header.fixed #wrap-header-search-menu .logo img {
+header.fixed #wrap-header-search-menu .logo-bizmart img {
     width: 125px;
 }
 
@@ -365,7 +365,7 @@ header .category-fixed{
    .search-menu-aside{
         height: 90px;
     }
-    .logo img{
+    .logo-bizmart img{
         width: 130px;
     }
     .shopping-cart i.fa.fa-cart-arrow-down{
@@ -381,7 +381,7 @@ header .category-fixed{
         position: absolute;
         padding-left: 2px;
     }
-    .container.main-header{
+    .container.main-header-bizmart{
         width: 98%;
     }
 

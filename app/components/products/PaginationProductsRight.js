@@ -43,34 +43,7 @@ class PaginationProductsRight extends Component {
     })
     }
   }
-  // handlePageChange(pageNumber) {
-  //   // console.log(this.props.ratings.length)
-  //   // console.log(`active page is ${pageNumber}`);
-  //   this.props.activePageChange({activePage:false})
-  //   this.setState({activePage: pageNumber});
-  //   var skipStart = (pageNumber - 1) * 12;
-  //   var endPage = skipStart+12;
-  //   if(this.props.dataPriceProducts.length >0){
-  //     var arrayData=[]
-  //     this.props.dataPriceProducts.map((item,index) => {
-  //       if(index < endPage && index >= skipStart){
-  //         arrayData.push(item);
-  //       }else{
-  //         return null
-  //       }
-  //       return this.props.handleDataPaginate(arrayData)
-  //     })
-  //   }else{
-  //     var self = this;
-  //     axios.get(`/productsapi/getAllProductsById?categoryId=${this.props.id}&skip=${skipStart}&limit=12&sort=createdAt+desc`)
-  //       .then(function (res) {
-  //         self.props.handleDataPaginate(res.data)
-  //       }).catch(function (err) {
-  //         console.log(err);
-  //       })
-  //   }
 
-  // }
   handlePageChange(pageNumber) {
     this.handleRedirect(pageNumber);
   }

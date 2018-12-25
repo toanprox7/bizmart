@@ -18,11 +18,11 @@
 //  to change `assets/styles/importer.less` instead.)
 var cssFilesToInject = [
   'styles/**/*.css',
-  'lib/navres/css/normalize.min.css',
-  'lib/navres/css/defaults.min.css',
-  'lib/navres/css/nav-core.min.css',
-  'lib/navres/css/nav-layout.min.css',
-  'lib/fancybox/source/helpers/jquery.fancybox-thumbs.css?v=1.0.7',
+  // 'lib/navres/css/normalize.min.css',
+  // 'lib/navres/css/defaults.min.css',
+  // 'lib/navres/css/nav-core.min.css',
+  // 'lib/navres/css/nav-layout.min.css',
+  // 'lib/fancybox/source/helpers/jquery.fancybox-thumbs.css?v=1.0.7',
   'lib/owl/css/owl.carousel.min.css',
   'lib/owl/css/owl.theme.default.min.css',
   'lib/owl/css/navOwl.css'
@@ -32,6 +32,8 @@ var cssFilesToInject = [
 // Client-side javascript files to inject in order
 // (uses Grunt-style wildcard/glob/splat expressions)
 var jsFilesToInject = [
+    // Load sails.io before everything else
+    'js/dependencies/sails.io.js',
   '/js/bootstrap/dist/js/bjquery.js',
   'lib/navres/js/nav.jquery.min.js',
   'lib/navres/js/rem.min.js',
@@ -44,8 +46,7 @@ var jsFilesToInject = [
   'lib/fancybox/source/helpers/jquery.fancybox-buttons.js?v=1.0.5',
   'lib/fancybox/source/helpers/jquery.fancybox-media.js?v=1.0.6',
 'lib/fancybox/source/helpers/jquery.fancybox-thumbs.js?v=1.0.7',
-  // Load sails.io before everything else
-  'js/dependencies/sails.io.js',
+
 
   // Dependencies like jQuery, or Angular are brought in here
   'js/dependencies/**/*.js',
