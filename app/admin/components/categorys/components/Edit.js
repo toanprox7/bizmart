@@ -197,10 +197,11 @@ this.setState({
             })
           }
         } className="btn btn-danger">Đồng ý</button>
-      </div>
+              </div>
             </div>
           </div>
         </div>
+
       </React.Fragment>
     );
   }

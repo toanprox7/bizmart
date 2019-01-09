@@ -1,7 +1,44 @@
 import React, { Component } from 'react';
 import "./styles/contact.css";
-
+import { AvForm, AvField } from 'availity-reactstrap-validation';
+import axios from "axios";
 class Contacts extends Component {
+  constructor(props) {
+    super(props);
+    this.state={
+      name:"",
+      phone_number:"",
+email:"",
+address:"",
+content:""
+    }
+  }
+  handleChange(e){
+
+    e.preventDefault();
+let {name,value}=e.target;
+// console.log(value);
+    this.setState({
+      [name]:value
+    });
+  }
+  handleSubmit(events,errors,value){
+if(errors.length === 0){
+console.log("no err");
+}
+  }
+  handleReset(){
+    // console.log(e.target.value);
+    this.setState({
+      name:"",
+      phone_number:"",
+email:"",
+address:"",
+content:""
+    });
+  }
+
+
   render() {
     return (
 <div id="main">
@@ -23,45 +60,63 @@ class Contacts extends Component {
               <p>Mời các bạn điền đầy đủ thông tin vào các mục sau:</p>
             </div>
             <div className="row">
-              <div className="col-xs-1 col-sm-1 col-md-1 col-lg-1">
+              <div className="col-xs-2 col-sm-2 col-md-2 col-lg-2">
               </div>
               <div className="col-xs-8 col-sm-8 col-md-8 col-lg-8">
-                <div className="form-contact text-right">
-                <form>
+                <div className="form-contact">
+                <AvForm onSubmit={this.handleSubmit}>
                   <div className="item-contact">
-                    <span>Tên:</span>
-                    <input type="text" />
+                     <span>Họ Và Tên:</span>
+                    {/* <input type="text" />  */}
+                    <AvField value={this.state.name} placeholder="Họ và tên" onChange={(e) => this.handleChange(e)} name="name" type="text" validate={{
+            required: {value: true, errorMessage: 'Họ và tên không được để trống'},
+            pattern: {value: /^[A-Za-zAÁÀẢÃẠÂẤẦẨẪẬĂẮẰẲẴẶEÉÈẺẼẸÊẾỀỂỄỆIÍÌỈĨỊOÓÒỎÕỌÔỐỒỔỖỘƠỚỜỞỠỢUÚÙỦŨỤƯỨỪỬỮỰYÝỲỶỸỴĐaáàảãạâấầẩẫậăắằẳẵặeéèẻẽẹêếềểễệiíìỉĩịoóòỏõọôốồổỗộơớờởỡợuúùủũụưứừửữựyýỳỷỹỵđ]*\s?[A-Za-zAÁÀẢÃẠÂẤẦẨẪẬĂẮẰẲẴẶEÉÈẺẼẸÊẾỀỂỄỆIÍÌỈĨỊOÓÒỎÕỌÔỐỒỔỖỘƠỚỜỞỠỢUÚÙỦŨỤƯỨỪỬỮỰYÝỲỶỸỴĐaáàảãạâấầẩẫậăắằẳẵặeéèẻẽẹêếềểễệiíìỉĩịoóòỏõọôốồổỗộơớờởỡợuúùủũụưứừửữựyýỳỷỹỵđ]*\s?[A-Za-zAÁÀẢÃẠÂẤẦẨẪẬĂẮẰẲẴẶEÉÈẺẼẸÊẾỀỂỄỆIÍÌỈĨỊOÓÒỎÕỌÔỐỒỔỖỘƠỚỜỞỠỢUÚÙỦŨỤƯỨỪỬỮỰYÝỲỶỸỴĐaáàảãạâấầẩẫậăắằẳẵặeéèẻẽẹêếềểễệiíìỉĩịoóòỏõọôốồổỗộơớờởỡợuúùủũụưứừửữựyýỳỷỹỵđ]*\s?[A-Za-zAÁÀẢÃẠÂẤẦẨẪẬĂẮẰẲẴẶEÉÈẺẼẸÊẾỀỂỄỆIÍÌỈĨỊOÓÒỎÕỌÔỐỒỔỖỘƠỚỜỞỠỢUÚÙỦŨỤƯỨỪỬỮỰYÝỲỶỸỴĐaáàảãạâấầẩẫậăắằẳẵặeéèẻẽẹêếềểễệiíìỉĩịoóòỏõọôốồổỗộơớờởỡợuúùủũụưứừửữựyýỳỷỹỵđ]*\s?[A-Za-zAÁÀẢÃẠÂẤẦẨẪẬĂẮẰẲẴẶEÉÈẺẼẸÊẾỀỂỄỆIÍÌỈĨỊOÓÒỎÕỌÔỐỒỔỖỘƠỚỜỞỠỢUÚÙỦŨỤƯỨỪỬỮỰYÝỲỶỸỴĐaáàảãạâấầẩẫậăắằẳẵặeéèẻẽẹêếềểễệiíìỉĩịoóòỏõọôốồổỗộơớờởỡợuúùủũụưứừửữựyýỳỷỹỵđ]*\s?[A-Za-zAÁÀẢÃẠÂẤẦẨẪẬĂẮẰẲẴẶEÉÈẺẼẸÊẾỀỂỄỆIÍÌỈĨỊOÓÒỎÕỌÔỐỒỔỖỘƠỚỜỞỠỢUÚÙỦŨỤƯỨỪỬỮỰYÝỲỶỸỴĐaáàảãạâấầẩẫậăắằẳẵặeéèẻẽẹêếềểễệiíìỉĩịoóòỏõọôốồổỗộơớờởỡợuúùủũụưứừửữựyýỳỷỹỵđ]+$/i, errorMessage: 'Họ và tên không hợp lệ'},
+            minLength: {value: 6, errorMessage: 'Họ và tên phải sử dụng ít nhất là 6 kí tự và nhiều nhất là 30 kí tự'},
+            maxLength: {value: 30, errorMessage: 'Họ và tên phải sử dụng ít nhất là 6 kí tự và nhiều nhất là 30 kí tự'}
+          }} />
                   </div>
                   <div className="item-contact">
-                    <span>Họ:</span>
-                    <input type="text" />
+                     <span>Email:</span>
+                    {/* <input type="text" />  */}
+                    <AvField value={this.state.email} onChange={(e) => this.handleChange(e)} name="email" placeholder="Nhập email của bạn" type="text" validate={{
+                              required: { value: true, errorMessage: 'Email của bạn không được để trống' },
+                              pattern: { value: /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/, errorMessage: 'Email của bạn không hợp lệ' },
+                              minLength: { value: 6, errorMessage: 'Email của bạn phải sử dụng ít nhất là 6 kí tự và nhiều nhất là 30 kí tự' },
+                              maxLength: { value: 30, errorMessage: 'Email của bạn phải sử dụng ít nhất là 6 kí tự và nhiều nhất là 30 kí tự' }
+                            }} />
                   </div>
                   <div className="item-contact">
-                    <span>Email:</span>
-                    <input type="text" />
-                  </div>
-                  <div className="item-contact">
-                    <span>Địa chỉ:</span>
-                    <input type="text" />
+                     <span>Địa chỉ:</span>
+                    {/* <input type="text" /> */}
+                              <AvField value={this.state.address} onChange={(e) => this.handleChange(e)} name="address" placeholder="Nhập địa chỉ của bạn" type="text" />
                   </div>
                   <div className="item-contact">
                     <span>Sđt:</span>
-                    <input type="text" />
+                    {/* <input type="text" /> */}
+                    <AvField value={this.state.phone_number} onChange={(e) => this.handleChange(e)} name="phone_number" placeholder="Nhập phone của bạn" type="text" validate={{
+                              required: { value: true, errorMessage: 'Số điện thoại của bạn không được để trống' },
+                              pattern: { value:'^[0-9]+$', errorMessage: 'Số điện thoại của bạn không hợp lệ' },
+                              minLength: { value: 8, errorMessage: 'Số điện thoại của bạn phải sử dụng ít nhất là 8 kí tự và nhiều nhất là 13 kí tự' },
+                              maxLength: { value: 13, errorMessage: 'Số điện thoại của bạn phải sử dụng ít nhất là 6 kí tự và nhiều nhất là 13 kí tự' }
+                            }} />
                   </div>
                   <div className="item-contact">
                     <span>Nội dung:</span>
-                    <textarea defaultValue={""} />
+                    {/* <textarea defaultValue={""} /> */}
+                    <AvField value={this.state.content} onChange={(e) => this.handleChange(e)} name="content" placeholder="Nhập nội dung của bạn" type="text" validate={
+                      {required:{value:true,errorMessage:'Nội dung không được để trống'}}
+                    } />
                   </div>
                   <div className="button-send-and-rerep">
-                    <button className="rerep">Nhập lại</button>
+                    <button type="reset" onClick={()=>this.handleReset()} className="rerep">Nhập lại</button>
                     <button className="send">Gửi</button>
                   </div>
-                  </form>
+                  </AvForm>
                 </div>
 
               </div>
 
-              <div className="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+              <div className="col-xs-2 col-sm-2 col-md-2 col-lg-2">
               </div>
             </div>
 

@@ -1,5 +1,9 @@
 import React, { Component } from 'react';
 import {NavLink,Link} from "react-router-dom";
+import createHistory from 'history/createBrowserHistory'
+const history = createHistory({
+  forceRefresh: true
+});
 class SideBar extends Component {
   constructor(props) {
     super(props);
@@ -76,7 +80,7 @@ this.setState({
 
     <ul className="sidebar-menu" data-widget="tree">
       <li className="header">DANH MỤC CHÍNH</li>
-      <li onClick={()=>{
+      {/* <li onClick={()=>{
 this.setState({
   activeRatings:"",
   activeCategorys:"",
@@ -85,10 +89,10 @@ this.setState({
   activeUsers:""
 });
       }} className={this.state.activeDashboard}>
-        <Link to="/admin/dashboard.html">
+        <Link to="/admin">
           <i className="fa fa-dashboard" /> <span>Dashboard</span>
         </Link>
-      </li>
+      </li> */}
       <li onClick={()=>{
 this.setState({
   activeRatings:"",
@@ -111,7 +115,7 @@ this.setState({
   activeUsers:""
 });
       }} className={this.state.activeProducts}>
-        <Link to="/admin/products.html">
+        <Link to="/admin/products/ /page-1.html">
           <i className="fa fa-bell" /> <span>Quản lý sản phẩm</span>
         </Link>
       </li>
@@ -124,7 +128,7 @@ this.setState({
           activeUsers:""
         });
       }} className={this.state.activeRatings}>
-        <Link to="/admin/ratings.html">
+        <Link to="/admin/ratings/ /page-1.html">
           <i className="fa fa-commenting-o" /> <span> Quản lý đánh giá</span>
         </Link>
       </li>
@@ -143,8 +147,13 @@ this.setState({
       </li>
 
       <li className="header">SYSTEM</li>
-      <li><Link to="#"><i className="fa fa-lock" /> <span>Đổi mật khẩu</span></Link></li>
-      <li><Link to="#"><i className="fa fa-user" /> <span>Đăng xuất</span></Link></li>
+      <li><Link to="/admin/change-password.html"><i className="fa fa-lock" /> <span>Đổi mật khẩu</span></Link></li>
+      <li onClick={()=>{
+// history.replace('/admin');
+if(localStorage.getItem('acess_admin')){
+  localStorage.removeItem('acess_admin');
+}
+      }}><Link to="/admin"><i className="fa fa-user" /> <span>Đăng xuất</span></Link></li>
     </ul>
   </section>
   {/* /.sidebar */}

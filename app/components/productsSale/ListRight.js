@@ -21,7 +21,7 @@ class ListProductSaleRight extends Component {
       let start = price.slice(0,getStt);
       let end = price.slice(getStt+1,price.length);
       let self =this;
-      axios.post(`/productsapi/find`,{skip:skipStart,price:{ '>=': parseInt(start),'<=': parseInt(end) },limit:12})
+      axios.post(`/productsapi/find`,{skip:skipStart,price:{ '>=': parseInt(start),'<=': parseInt(end) },limit:12,status:'active',sort:'createdAt DESC'})
       .then(function (res) {
         // console.log(res);
         self.setState({
@@ -34,7 +34,7 @@ class ListProductSaleRight extends Component {
       let pageNumber =this.props.match.params.idPage;
       let skipStart = (pageNumber - 1) * 12;
       let self =this;
-      axios.post(`/productsapi/find`,{skip:skipStart,limit:12})
+      axios.post(`/productsapi/find`,{skip:skipStart,limit:12,status:'active',sort:'createdAt DESC'})
       .then(function (res) {
         // console.log(res.data);
         self.setState({

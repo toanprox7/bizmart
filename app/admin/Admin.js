@@ -43,6 +43,32 @@ class Admin extends Component {
       displayOpacity:0
     }
   }
+
+  componentWillMount() {
+    var self=this;
+    var tokenAdmin = localStorage.getItem('acess_admin');
+  if(tokenAdmin){
+  // console.log(tokenAdmin,"toke");
+  try {
+    var decoded = jwt.verify(tokenAdmin, 'toanpro');
+
+  if(!decoded){
+    this.props.history.push('/admin');
+  }else{
+    this.props.history.push('/admin/products/%20/page-1.html');
+  }
+  } catch(err) {
+    // err
+  this.props.history.push('/admin');
+  }
+
+  }else if(!tokenAdmin){
+  // this.props.history.push('/admin');
+  this.props.history.push('/admin');
+  }
+  }
+
+
   _handleKeyPress = async (e) => {
     // e.preventDefault();
     if (e.key === 'Enter') {
@@ -75,7 +101,7 @@ if(this.state.isToggle == false){
           self.setState({
             isLoadding:false
           });
-          self.props.history.push('/admin/dashboard.html');
+          self.props.history.push('/admin/products/%20/page-1.html');
         }
         }).catch(function (err) {
           console.log(err);
@@ -95,7 +121,7 @@ if(this.state.isToggle == false){
             self.setState({
               isLoadding:false
             });
-            self.props.history.push('/admin/dashboard.html');
+            self.props.history.push('/admin/products/%20/page-1.html');
           }
         }).catch(function (err) {
           console.log(err);
@@ -326,7 +352,8 @@ displayErrUser:"none"
     }
   render() {
     return (
-       <Container>
+
+       <Container style={{minHeight:"100%"}}>
 
          <Col md="3">
 
@@ -439,6 +466,7 @@ value={this.state.phone_or_email}
           border:"1px solid green",
           borderRadius:"0",
           borderTop:"none",
+// marginBottom:"300px"
            }}
            onClick={(e) => this.handleClickBtn(e)}>{(this.state.isToggle==false)?"Quên mật khẩu?":"Đăng Nhập tài khoản"}</Button>
          </Col>

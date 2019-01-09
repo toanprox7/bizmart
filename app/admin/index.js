@@ -12,6 +12,10 @@ import CreateForm from './components/categorys/components/Create';
 import EditForm from './components/categorys/components/Edit';
 import VerifyPassword from './components/common/VerifyPassword';
 import ForgetPassword from './components/common/ForgetPassword';
+import Show from './components/products/components/Show';
+import CreateProduct from './components/products/components/Create';
+import ChangePassword from './components/common/ChangePassword';
+import EditProduct from './components/products/components/Edit';
 class IndexAdmin extends Component {
   render() {
     return (
@@ -24,12 +28,16 @@ class IndexAdmin extends Component {
 
   <Layout>
       <Route exact path="/admin/dashboard.html" component={DashBoard}/>
-      <Route exact path="/admin/ratings.html" component={Ratings}/>
       <Route exact path="/admin/categorys/:textSearch/page-:idPage.html" component={Category}/>
       <Route exact path="/admin/categorys/create.html" component={CreateForm}/>
+      <Route exact path="/admin/products/create.html" component={CreateProduct}/>
       <Route exact path="/admin/categorys/:id/edit.html" component={EditForm}/>
-      <Route exact path="/admin/products.html" component={Products}/>
+      <Route exact path="/admin/products/:id/edit.html" component={EditProduct}/>
+      <Route exact path="/admin/products/:id/show.html" component={Show}/>
+      <Route exact path="/admin/products/:textSearch/page-:idPage.html" component={Products}/>
       <Route exact path="/admin/users/:textSearch/page-:idPage.html" component={UsersPage}/>
+      <Route exact path="/admin/ratings/:textSearch/page-:idPage.html" component={Ratings}/>
+      <Route exact path="/admin/change-password.html" component={ChangePassword}/>
 
   </Layout>
 </Switch>

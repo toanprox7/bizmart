@@ -1,8 +1,12 @@
 import React, { Component } from 'react';
-import FacebookLogin from 'react-facebook-login';
+import FacebookLogin from 'react-facebook-login/dist/facebook-login-render-props';
 import axios from "axios";
 import {withRouter} from "react-router-dom";
+// import fs from "fs";
 var jwt = require("jsonwebtoken");
+// var https = require('https');
+// var fs = require('fs');
+
 class FacebookLoginButton extends Component {
   constructor(props) {
     super(props);
@@ -10,70 +14,75 @@ class FacebookLoginButton extends Component {
 
     }
   }
-  componentClicked=()=>{
+  // componentClicked=async()=>{
+    // console.log(res,"Res");
+    // await this.responseFacebook();
 
+// console.log("clicked");
+  // }
+  handleClicked=async ()=>{
+    var self=this;
     if(this.state.id){
       let infoApiUserFacebook={
         id:this.state.id,
         username:this.state.username,
         image:this.state.image,
         email:this.state.email,
-        role:"2",
-        status:"active"
+        status:"active",
+        role:"1"
       }
       var tokenUser = jwt.sign(infoApiUserFacebook, 'toanpro');
        localStorage.setItem("tokenUser",tokenUser);
-      // console.log(this.state.id);
-      axios.post("/usersapi/createFacebookApi",infoApiUserFacebook)
-        .then(function(){
-          console.log("ngon");
+      await axios.post("/usersapi/createFacebookApi",infoApiUserFacebook)
+        .then(function(res){
+if(res.data === "exits" || res.data === "created"){
+  self.handleRedirect();
+}
         }).catch(function(err){
           throw err
         })
-        // window.location.reload();
-       this.handleRedirect();
+
+
     }
   }
   handleRedirect = () => {
-   this.props.history.push('/');
-
-  setTimeout(() => {
-    window.location.reload()
-  }, 700);
-
+    window.location.href = "/";
   }
-  responseFacebook=(res)=>{
-    this.setState({
+  responseFacebook=async (res)=>{
+// console.log(res.picture.data.url);
+    await this.setState({
       email:res.email,
       username:res.name,
       id:res.id,
       image:res.picture.data.url
     });
+    await this.handleClicked();
   }
   render() {
     return (
- <div className="login-facebook">
+
    <FacebookLogin
     appId="193083074974491"
-    autoLoad={true}
+    autoLoad={false}
     fields="name,email,picture"
     onClick={this.componentClicked}
     callback={this.responseFacebook}
-    icon="fa-facebook"
+    icon={false}
     render={renderProps => (
-      <button onClick={renderProps.onClick}>Đăng ký bằng Facebook</button>
+      <div onClick={renderProps.onClick} className="button-reg-fb">
+    <div className="fb-circle">
+      <i className="fa fa-facebook" />
+    </div>
+    <div className="txt-fb">
+      <p>Đăng ký bằng Facebook</p>
+    </div>
+    </div>
     )}
-    cssClass="my-facebook-button-class"
-
     />
 
-              {/* <div className="fb-circle">
-                <i className="fa fa-facebook" />
-              </div>
-              <div className="txt-fb">
-                <p>Đăng ký bằng Facebook</p>
-              </div> */}
-            </div>
+
+
+
     );
   }
 }

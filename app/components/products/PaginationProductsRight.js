@@ -51,8 +51,9 @@ class PaginationProductsRight extends Component {
   handleRedirect(numberPage){
     var linkProducts = window.location.pathname;
     let textCategory = linkProducts.slice(linkProducts.indexOf('/products/')+10, linkProducts.indexOf(`/${this.props.idPage}/`));
-    this.props.history.push(`/products/${textCategory}/${numberPage}/${this.props.price}`);
-    window.location.reload();
+    // this.props.history.push(`/products/${textCategory}/${numberPage}/${this.props.price}`);
+    // window.location.reload();
+    window.location.href=`/products/${textCategory}/${numberPage}/${this.props.price}`;
   }
   checkTotal(){
     if(this.state.totalProducts){

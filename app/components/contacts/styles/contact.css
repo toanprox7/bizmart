@@ -7,9 +7,9 @@
     margin-top: 15px;
 }
 
-.form-contact .item-contact {
-    display: flex;
-    justify-content: flex-end;
+.form-contact .item-contact input {
+    /* display: flex;
+    justify-content: flex-end; */
 }
 
 hr.across-red-header {

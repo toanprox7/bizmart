@@ -2,16 +2,7 @@
     margin:0;
     padding: 0;
 }
-img.img-item{
-  width: 100%;
-}
-.thumbnail .wrap-img{
-  width: 100%;
-  height: 273px;
-  overflow: hidden;
-  display: flex;
-  align-items: center;
-}
+
 
 .category-home .title-category-home h3 {
     color: white;

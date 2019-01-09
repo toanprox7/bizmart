@@ -1,5 +1,11 @@
 *{margin:0;
 padding: 0;}
+.caption-height{
+  height: 120px;
+}
+.caption-height h5{
+  height: 50px;
+}
 
 .products-hot .top-products-right {
     margin: 40px 0 25px 0;
@@ -25,7 +31,7 @@ padding: 0;}
 
 .products-hot .thumbnail {
     padding:0;
-    
+
 }
 
 .owl-prev span {

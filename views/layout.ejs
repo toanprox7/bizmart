@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html class="body-height-full" style="height:100%">
   <head>
     <title><%=typeof title == 'undefined' ? 'New Sails App' : title%></title>
 
@@ -72,10 +72,10 @@
     <!--STYLES END-->
   </head>
 
-  <body class="hold-transition skin-blue sidebar-mini">
+  <body class="hold-transition skin-blue sidebar-mini body-height-full">
     <%- body %>
 
-    <div id="layout"></div>
+    <div id="layout" style="height: 100%;"></div>
 
     <!--
         Client-side Templates

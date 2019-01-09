@@ -6,7 +6,7 @@ const options = {
     margin:10,
     loop:false,
     dots:false,
-    nav:false,
+    nav:true,
     responsive:{
       0:{
           items:1
@@ -21,7 +21,8 @@ const options = {
           items:4
       }
   },
-  autoplay:true
+  autoplay:false,
+  navText:["<i class='fa fa-arrow-left'></i>","<i class='fa fa-arrow-right'></i>"]
 };
 class ImgProductsDetailsLeft extends Component {
   constructor(props) {
@@ -41,9 +42,19 @@ class ImgProductsDetailsLeft extends Component {
       if(dataProducts.image){
         var data = dataProducts.image.split(",");
         return data.map(item => {
-          return  <a key={item.id} className="fancybox-thumb" rel="fancybox-thumb" onClick={() => this.handleClick(item)} title="Golden Manarola (Sanjeev Deo)">
-          <img src={`/images/upload/${item}`} alt="img-dep" />
+          return <div style={{
+            height: "120px",
+            overflow: "hidden",
+            /* line-height: 107px; */
+            display: "flex",
+            alignItems: "center",
+            marginTop: "16px",
+          }}>
+            <a key={item.id} onMouseOver={() => this.handleClick(item)} title="Golden Manarola (Sanjeev Deo)">
+          <img src={`/images/upload/small/${item}`} alt="img-dep" />
          </a>
+          </div>
+
         })
       }
     }else if(dataProducts.length == 0){
@@ -82,8 +93,13 @@ class ImgProductsDetailsLeft extends Component {
 
         return (
 <div className="img-products-zoom">
-<div className="img-main-one">
-<ReactImageMagnify {...{
+<div className="img-main-one" style={{
+      display: "flex",
+      alignItems: "center",
+      height: "500px",
+      justifyContent: "center",
+}}>
+{/* <ReactImageMagnify {...{
     smallImage: {
         alt: 'Wristwatch by Ted Baker London',
         isFluidWidth: true,
@@ -96,14 +112,16 @@ class ImgProductsDetailsLeft extends Component {
         height:1000,
     },
     style:{zIndex:13}
-}} />
+}} /> */}
+<div style={{
+  display: "flex",
+    alignItems: "center",
+    height: "100%"}}>
+<img style={{maxHeight:"100%"}} src={LinkImgSmall} className="img-responsive" />
 </div>
 
-  {/* <div className="img-zoom-main">
-    <a className="fancybox-thumb" rel="fancybox-thumb" href={`/images/upload/${linkImgMain}`} title="Golden Manarola (Sanjeev Deo)">
-      <img className="img-responsive" id="img_01" src={`/images/upload/small/${linkImgMain}`} data-zoom-image={`/images/upload/${linkImgMain}`} />
-    </a>
-  </div> */}
+</div>
+
   <OwlCarousel options={options} >
     {LinkImg}
   </OwlCarousel>

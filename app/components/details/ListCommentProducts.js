@@ -14,7 +14,8 @@ class ListCommentProducts extends Component {
     this.state={
       rating: 0,
       contentRating:"",
-      idProduct:parseInt(this.props.idProduct)
+      idProduct:parseInt(this.props.idProduct),
+      displayModal:"none",
     }
   }
   componentDidMount() {
@@ -147,20 +148,56 @@ class ListCommentProducts extends Component {
         const { rating } = this.state;
         return (
         <div className="list-rating-products">
-            <div className="input-item-rating">
-              <div className="img-rating">
-                <img src={this.state.image} alt="img_product" />
+ <div className="modal fade in" id="modal-default" style={{ display:this.state.displayModal, paddingRight: '15px' }}>
+          <div className="modal-dialog">
+            <div className="modal-content">
+              <div className="modal-header">
+                <button type="button" className="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true" onClick={() => {
+this.setState({
+  displayModal:"none"
+})}}>×</span>
+                </button>
+                <h4 className="modal-title">Đánh giá</h4>
               </div>
-              <div className="input-comment">
-                <textarea onChange={(event) => this.handleChangeDataText(event)} ref="inputRating" style={{paddingLeft:10}} name="inputRating" placeholder="Đánh giá sản phẩm..."  />
-                <StarRatingComponent
+              <div className="modal-body" style={{fontSize: "200%",
+    textAlign: "center"}}>
+              <StarRatingComponent
                   name="rate5"
                   starCount={5}
                   value={rating}
                   onStarHover ={this.handleOnHoverStar}
                   onStarClick={(nextValue, prevValue, name) => this.onHandleClick(nextValue, prevValue, name)}
                 />
-                <button onClick={() => this.handleButtonSend()}>Gửi</button>
+      </div>
+      <div className="modal-footer">
+        <button type="button" className="btn btn-default pull-left" onClick={() => {
+this.setState({
+  displayModal:"none"
+})
+        }}>Close</button>
+<button onClick={()=> this.handleButtonSend()} className="btn btn-danger">Đồng ý</button>
+           </div>
+            </div>
+          </div>
+        </div>
+            <div className="input-item-rating">
+              <div className="img-rating">
+                <img src={this.state.image} alt="img_product" />
+              </div>
+              <div className="input-comment">
+                <textarea onChange={(event) => this.handleChangeDataText(event)} ref="inputRating" style={{paddingLeft:10}} name="inputRating" placeholder="Đánh giá sản phẩm..."  />
+
+                <button onClick={() => {
+if(this.state.contentRating == ""){
+alert("Bạn vui lòng nhập bình luận trước khi đánh giá");
+}else if(this.state.contentRating !== ""){
+  this.setState({
+    displayModal:"block"
+  });
+}
+
+                }}>Gửi</button>
               </div>
             </div>
           {this.checkMapData()}

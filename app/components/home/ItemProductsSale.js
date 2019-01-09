@@ -53,7 +53,7 @@ handleLinkImage=() =>{
       return slug;
   }
     return (
-      <div className="col-xs-6 col-sm-4 col-md-4 col-lg-4">
+      <div className="col-xs-12 col-sm-6 col-md-4 col-lg-4">
         <div className="thumbnail">
           <a href={`/details/${ChangeToSlug(this.props.data.title)}-${this.props.data.id}-${this.props.data.categoryId.id}`}>
           <div className="wrap-img">

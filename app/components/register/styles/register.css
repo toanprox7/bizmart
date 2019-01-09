@@ -45,15 +45,15 @@ span.err-label {
     box-shadow: 0px 4px 5px #c7c7c7;
 }
 .txt-email {
-    background: #2991c7;
-    width: 279px;
-    color: white;
-    text-align: center;
-    font-size: 21px;
-    border-radius: 0 10px 10px 0;
-    border-left: 2px solid #50a3ce;
-    cursor: pointer;
-    box-shadow: 0px 4px 5px #c7c7c7;
+  background: #dd4d3e;
+  width: 279px;
+  color: white;
+  text-align: center;
+  font-size: 21px;
+  border-radius: 0 10px 10px 0;
+  border-left: 2px solid #d23727;
+  cursor: pointer;
+  box-shadow: 0px 4px 5px #c7c7c7;
 }
 
 .had-username {
@@ -103,8 +103,12 @@ span.err-label {
 
 
 .button-reg-email {
-    display: flex;
-    justify-content: center;
+  display: flex;
+  justify-content: center;
+  height: 70px;
+  line-height: 70px;
+  cursor: pointer;
+  margin-bottom: 25px;
 }
 
 .button-reg-fb {
@@ -128,26 +132,28 @@ span.err-label {
     /* background: red; */
 }
 .button-reg-fb .fb-circle {
-    width: 100px;
-    border: 1px solid #3b5a99;
-    background: #3b5a99;
-    /* color: white; */
-    text-align: center;
-    line-height: 90px;
-    border-right: 2px solid #374154;
-    border-radius: 10px 0 0 10px;
-    box-shadow: 0px 4px 5px #c7c7c7;
+
+  width: 100px;
+  border: 1px solid #3b5a99;
+  background: #3b5a99;
+  /* color: white; */
+  text-align: center;
+  line-height: 90px;
+  border-right: 2px solid #374154;
+  border-radius: 10px 0 0 10px;
+  box-shadow: 0px 4px 5px #c7c7c7;
 }
 .button-reg-email .email-circle {
-    width: 100px;
-    border: 1px solid #2991c7;
-    background: #2991c7;
-    /* color: white; */
-    text-align: center;
-    line-height: 90px;
-    border-right: 2px solid #325161;
-    border-radius: 10px 0 0 10px;
-    box-shadow: 0px 4px 5px #c7c7c7;
+
+  width: 100px;
+  border: 1px solid #d24233;
+  background: #dd4d3e;
+  /* color: white; */
+  text-align: center;
+  line-height: 90px;
+  border-right: 2px solid #d23727;
+  border-radius: 10px 0 0 10px;
+  box-shadow: 0px 4px 5px #c7c7c7;
 }
 
 .button-reg-fb .fb-circle i {
@@ -161,22 +167,21 @@ span.err-label {
     line-height: 60px;
     text-align: center;
     font-size: 40px;
-    /* margin: 0 auto; */
+    margin: 0 auto !important;
     /* cursor: pointer; */
+    padding: 0;
 }
 .button-reg-email .email-circle i {
-    width: 60px;
-    height: 60px;
-    border: 1px solid white;
-    /* position: absolute; */
-    background: white;
-    color: #2991c7;
-    border-radius: 50%;
-    line-height: 60px;
-    text-align: center;
-    font-size: 40px;
-    /* margin: 0 auto; */
-    /* cursor: pointer; */
+  width: 60px;
+  height: 60px;
+  border: 1px solid white;
+  /* position: absolute; */
+  background: white;
+  color: #dd4d3e;
+  border-radius: 50%;
+  line-height: 60px;
+  text-align: center;
+  font-size: 40px;
 }
 
 .checkbox-reg {
@@ -185,7 +190,7 @@ span.err-label {
     padding-bottom: 20px;
 }
 
-.checkbox-reg .rule-bizmart {
+.checkbox-reg label {
     color: #dc2a3a;
     font-weight: normal;
     font-size: 20px;

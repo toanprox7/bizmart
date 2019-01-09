@@ -25,28 +25,26 @@ padding: 0;}
 
 .products-hot .thumbnail {
     padding:0;
-    
+
 }
 
-.owl-prev span {
+.owl-prev {
     position: absolute;
     top: 45%;
-    left: 0;
+    left: -40px;
     font-size: 30px;
     font-weight: bold;
     background: white;
     width: 25px;
     height: 25px;
-    /* padding-bottom: 4px; */
-    /* margin: 0px; */
     line-height: 20px;
-    border-radius: 50%;
+    border-radius: 50% !important;
     color: #dc2a3a;
 }
-.owl-next span {
+.owl-next {
     position: absolute;
     top: 45%;
-    right:0px;
+    right:-40px;
     font-size: 30px;
     font-weight: bold;
     background: white;
@@ -55,6 +53,6 @@ padding: 0;}
     /* padding-bottom: 4px; */
     /* margin: 0px; */
     line-height: 20px;
-    border-radius: 50%;
-    color: #dc2a3a;
+    border-radius: 50% !important;
+    color: #dc2a3a ;
 }

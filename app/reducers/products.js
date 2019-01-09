@@ -20,7 +20,7 @@ const productsReducer = (state = productsInitialState, action) => {
         case GET_DATA_IMAGE_LOCAL:
         return{
           ...state,
-          dataImageLocal: state.dataImageLocal.concat(action.getDataImageLocal)
+          dataImageLocal: action.getDataImageLocal
         }
 
         case GET_DATA_PRODUCTS_LOCAL:

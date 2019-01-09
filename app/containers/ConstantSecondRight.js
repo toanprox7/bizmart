@@ -5,6 +5,8 @@ import PostNewRight from '../components/postNew/PostNewRight';
 import HomeRight from '../components/home/HomeRight';
 import InfoUserRight from '../components/updateInfoUser/InfoUserRight';
 import ListProductSaleRight from '../components/productsSale/ListRight';
+import ListProductHotRight from '../components/productsHot/ListRight';
+import ListProductMyselfRight from '../components/productsMyself/ListRight';
 import SearchProducts from "../components/search/SearchProducts";
 class ConstantSecondRight extends Component {
     render() {
@@ -15,6 +17,8 @@ class ConstantSecondRight extends Component {
                 <Route exact path="/" component={HomeRight} />
                 <Route exact path="/update-user" component={InfoUserRight} />
                 <Route exact path="/products-sale/:idPage/:price" component={ListProductSaleRight} />
+                <Route exact path="/products-hot/:idPage/:price" component={ListProductHotRight} />
+                <Route exact path="/products-myself/:idPage/:price" component={ListProductMyselfRight} />
                 <Route exact path="/products-search/:textSearch/:idPage/:price" component={SearchProducts} />
 
             </Switch>

@@ -130,14 +130,19 @@ footer {
    }
    .info-display-main-footer{
     border-top: 1px solid #ffffff63;
+    display: none;
+    transition:0.5s;
    }
    .info-main-footer .icon-social{
     border-bottom: 1px solid white;
     padding-bottom: 10px;
     padding-top: 10px;
-    text-align: center; 
+    text-align: center;
    }
    .info-main-footer .icon-social i{
     font-size: 35px;
+   }
+   .active-footer{
+     display: block;
    }
 }

@@ -5,6 +5,7 @@
  * @help        :: See http://sailsjs.org/#!/documentation/concepts/Controllers
  */
 const puretext = require('puretext');
+const nodemailer = require('nodemailer');
 var jwt = require('jsonwebtoken');
 var LocalStorage = require('node-localstorage').LocalStorage;
 localStorage = new LocalStorage('./scratch');
@@ -58,6 +59,6 @@ module.exports = {
       return res.send("404");
     }
 
-  }
+  },
 };
 

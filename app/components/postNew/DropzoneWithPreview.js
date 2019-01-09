@@ -3,7 +3,11 @@ import React from 'react'
 import request from "superagent"
 import {connect} from "react-redux"
 import {addDataImageLocal} from "../../actions";
+import ReactLoading from 'react-loading';
 import axios from "axios";
+const Loading = () => (
+  <ReactLoading type="spin" color="green" height="5%" width="5%" />
+  );
 const thumbsContainer = {
   display: 'flex',
   flexDirection: 'row',
@@ -40,41 +44,56 @@ class DropzoneWithPreview extends React.Component {
     super()
     this.state = {
       files: [],
-      filesChangedName:[]
+      filesChangedName:[],
+      isLoadding:false,
     };
   }
 
 
   onDrop(acceptedFiles, rejectedFiles) {
+
     // console.log(acceptedFiles[0]);
-    const req = request.post('/files/uploadHandler');
-    var self = this;
-    acceptedFiles.forEach(file => {
-        req.attach("file", file);
-    });
-    req.end((err,response) => {
-      if(err) console.log(err);
-      if(response) {
-        console.log(response,"response");
-        var filesChangedName=[];
-        response.body.files.map(item => {
-          var stringPath = item.fd;
-          var start= stringPath.indexOf("upload/");
-          var end = stringPath.length;
-          var fileNameImage = stringPath.slice(start+7, end);
-          filesChangedName.push(fileNameImage);
-        })
-        self.setState({
-          filesChangedName
-        });
-      }
-    });
-    this.setState({
+
+// console.log(rejectedFiles,acceptedFiles,"reject");
+if(rejectedFiles.length ===0){
+if(acceptedFiles.length <= 6){
+  this.setState({
+    isLoadding:true,
+  });
+  const req = request.post('/files/uploadHandler');
+  var self = this;
+  acceptedFiles.forEach(file => {
+    req.attach("file", file);
+});
+req.end((err,response) => {
+  if(err) console.log(err);
+  if(response) {
+
+    console.log(response,"response");
+    var filesChangedName=[];
+    response.body.files.map(item => {
+      var stringPath = item.fd;
+      var start= stringPath.indexOf("upload/");
+      var end = stringPath.length;
+      var fileNameImage = stringPath.slice(start+7, end);
+      filesChangedName.push(fileNameImage);
+    })
+    self.setState({
+      filesChangedName,
+      isLoadding:false,
       files: acceptedFiles.map(file => ({
         ...file,
         preview: URL.createObjectURL(file)
       }))
     });
+  }
+})
+
+}else{
+alert("Bạn không được phép upload quá 6 ảnh");
+}
+}
+
   }
 componentWillUpdate(nextProps, nextState) {
   // this.props.handleImg(nextState.filesChangedName)
@@ -120,6 +139,7 @@ componentWillUpdate(nextProps, nextState) {
           <label htmlFor="file"><img src="/images/upload.png" /><span>Tải ảnh lên</span></label>
           </Dropzone>
         </div>
+        {this.state.isLoadding === true?(<div><span>Đang upload ảnh, vui lòng chờ</span> <Loading /></div>):null}
         <aside style={thumbsContainer}>
           {thumbs}
         </aside>

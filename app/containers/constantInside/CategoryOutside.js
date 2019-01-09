@@ -9,8 +9,10 @@ class CategoryOutside extends Component {
                <Route path="/post-new" component={ConstantCategoryLeft} />
                <Route path="/update-user" component={ConstantCategoryLeft} />
                <Route exact path="/" component={ConstantCategoryLeft} />
-               <Route path="/products/*-:idCategory/:idPage/:price" component={ConstantCategoryLeft} />
+               <Route exact path="/products/*-:idCategory/:idPage/:price" component={ConstantCategoryLeft} />
                <Route path="/products-sale/:idPage/:price" component={ConstantCategoryLeft} />
+               <Route path="/products-hot/:idPage/:price" component={ConstantCategoryLeft} />
+               <Route path="/products-myself/:idPage/:price" component={ConstantCategoryLeft} />
                <Route path="/products-search/:textSearch/:idPage/:price" component={ConstantCategoryLeft} />
 
            </Switch>

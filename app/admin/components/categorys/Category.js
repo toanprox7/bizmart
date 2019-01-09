@@ -3,27 +3,43 @@ import axios from 'axios';
 import { ButtonCreate } from './components/Create';
 import {Link} from "react-router-dom"
 import Pagination from "react-js-pagination";
+import ReactLoading from 'react-loading';
+
+const Loading = () => (
+    <ReactLoading type="bars" color="blue" style={{margin:"auto",width:"50px"}} />
+);
 class Category extends Component {
   constructor(props) {
     super(props);
     this.state={
-      activePage: 1
+      activePage: 1,
+      data:null
     }
   }
 
 
 componentDidMount() {
   this.setState({
-activePage:parseInt(this.props.match.params.idPage)
+activePage:parseInt(this.props.match.params.idPage),
+isLoading:true
   });
 var self=this;
 if(this.props.match.params.textSearch == 0){
   let skipStart = (parseInt(this.props.match.params.idPage) - 1) * 10;
   axios.post('/categoryapi/find',{skip:skipStart,sort:'createdAt DESC',limit:10}).then(function (res) {
-    self.setState({
-      data:res.data,
-      totalPageRecord:res.data.length
-    });
+    if(res.data.length > 0){
+      self.setState({
+        data:res.data,
+        totalPageRecord:res.data.length,
+        isLoading:false
+      });
+    }else{
+      self.setState({
+        data:"Không tìm thấy danh mục nào",
+        totalPageRecord:0,
+        isLoading:false
+      });
+    }
     // console.log(res.data);
 }).catch(function (err) {
 console.log(err);
@@ -38,10 +54,19 @@ this.handleRequestSearch();
     sort:'createdAt DESC'
   }
   axios.post("/categoryapi/search",infoSearch).then(function (res) {
-    self.setState({
-      data:res.data,
-      totalPageRecord:res.data.length
-    });
+    if(res.data.length > 0){
+      self.setState({
+        data:res.data,
+        totalPageRecord:res.data.length,
+        isLoading:false
+      });
+    }else{
+      self.setState({
+        data:"Không tìm thấy danh mục nào",
+        totalPageRecord:0,
+        isLoading:false
+      });
+    }
   }).catch(function (err) {
     console.log(err);
   })
@@ -62,6 +87,8 @@ handleSearch=_.debounce((text) => {
   this.setState({
     textSearch:text,
     activePage:1,
+    isLoading:true,
+    data:null
   });
   this.changeRoute(this.state.textSearch);
   var self=this;
@@ -74,20 +101,38 @@ handleSearch=_.debounce((text) => {
       sort:'createdAt DESC'
     }
     axios.post("/categoryapi/search",infoSearch).then(function (res) {
-      self.setState({
-        data:res.data,
-        totalPageRecord:res.data.length
-      });
+      if(res.data.length > 0){
+        self.setState({
+          data:res.data,
+          totalPageRecord:res.data.length,
+          isLoading:false
+        });
+      }else{
+        self.setState({
+          data:"Không tìm thấy danh mục nào",
+          totalPageRecord:0,
+          isLoading:false
+        });
+      }
     }).catch(function (err) {
       console.log(err);
     })
     this.handleRequestSearch();
   }else if(this.props.match.params.textSearch == 0){
     axios.post('/categoryapi/find',{skip:skipStart,sort:'createdAt DESC',limit:10}).then(function (res) {
-      self.setState({
-        data:res.data,
-        totalPageRecord:res.data.length
-      });
+      if(res.data.length > 0){
+        self.setState({
+          data:res.data,
+          totalPageRecord:res.data.length,
+          isLoading:false
+        });
+      }else{
+        self.setState({
+          data:"Không tìm thấy danh mục nào",
+          totalPageRecord:0,
+          isLoading:false
+        });
+      }
       // console.log(res.data);
   }).catch(function (err) {
   console.log(err);
@@ -100,10 +145,18 @@ handleRequestSearch(){
   var self=this;
   if(this.props.match.params.textSearch == 0){
     axios.post('/categoryapi/find',{sort:'createdAt DESC'}).then(function (res) {
-      self.setState({
-        totalRecord:res.data.length
-        // totalRecord:res.data.length
-      });
+      if(res.data.length > 0){
+        self.setState({
+          totalRecord:res.data.length,
+          isLoading:false
+        });
+      }else{
+        self.setState({
+          totalRecord:0,
+          isLoading:false
+        });
+      }
+
       // console.log(res.data);
   }).catch(function (err) {
   console.log(err);
@@ -137,7 +190,9 @@ return this.props.match.params.textSearch
 }
 handlePageChange(pageNumber) {
   this.setState({
-activePage:pageNumber
+activePage:pageNumber,
+isLoading:true,
+data:null
   });
   this.changeRoutePage(pageNumber);
 this.handleRequest(pageNumber)
@@ -148,10 +203,19 @@ handleRequest(pageNumber){
   let limit = 10
 if(this.props.match.params.textSearch == 0){
   axios.post(`/categoryapi/find`,{sort:'createdAt DESC',limit:limit,skip:skipStart}).then(function (res) {
-    self.setState({
-      data:res.data,
-      totalPageRecord:res.data.length
-    })
+    if(res.data.length > 0){
+      self.setState({
+        data:res.data,
+        totalPageRecord:res.data.length,
+        isLoading:false
+      });
+    }else{
+      self.setState({
+        data:"Không tìm thấy danh mục nào",
+        totalPageRecord:0,
+        isLoading:false
+      });
+    }
   }).catch(function (err) {
     console.log(err);
   })
@@ -163,10 +227,19 @@ if(this.props.match.params.textSearch == 0){
     sort:'createdAt DESC'
   }
   axios.post("/categoryapi/search",infoSearch).then(function (res) {
-    self.setState({
-      data:res.data,
-      totalPageRecord:res.data.length
-    });
+    if(res.data.length > 0){
+      self.setState({
+        data:res.data,
+        totalPageRecord:res.data.length,
+        isLoading:false
+      });
+    }else{
+      self.setState({
+        data:"Không tìm thấy danh mục nào",
+        totalPageRecord:0,
+        isLoading:false
+      });
+    }
   }).catch(function (err) {
     console.log(err);
   })
@@ -239,7 +312,8 @@ boxTitle:{
           </div>
           {/* /.box-header */}
           <div className="box-body">
-            <table className="table table-bordered table-striped">
+          {this.state.isLoading === true?<Loading />:null}
+           {this.state.data && this.state.data !== "Không tìm thấy danh mục nào"?( <table className="table table-bordered table-striped">
               <thead>
                 <tr>
                    <th>STT</th>
@@ -259,7 +333,7 @@ boxTitle:{
                   <th>Hành động</th>
                 </tr>
               </tfoot>
-            </table>
+            </table>):this.state.data}
             <div style={{marginTop:"30px"}} className="pull-left">
 <span><b>Hiển thị <span style={{color:"grey"}}>{this.totalPageCurrent()}/{this.checkTotalRecord()}</span></b></span>
             </div>

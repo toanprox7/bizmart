@@ -14,6 +14,9 @@ import Router from '../admin/Router';
 import IndexAdmin from '../admin';
 import Layout from "../containers/Layout";
 import BannerMain from "../components/banner/BannerMain";
+import HomeRight from '../components/home/HomeRight';
+import WrapConstentSecond from './WrapConstentSecond';
+import Admin from '../admin/Admin';
 const NoMatch = ({ location }) => (
   <div>
     <h3>No match for <code>{location.pathname}</code></h3>
@@ -25,6 +28,7 @@ class ContentRoot extends Component {
             <React.Fragment>
             <Switch>
 <Route path="/admin" component={IndexAdmin} />
+<Route exact path="/admin" component={Admin}/>
 {/* <Route path="/admin" component={IndexAdmin} /> */}
 {/* <Route exact path="/admin/dashboard.html" component={Router}/> */}
 <Layout>
@@ -35,13 +39,15 @@ class ContentRoot extends Component {
 <Route path="/details/*-:idProducts-:idCategory" component={Details}/>
 <Route path="/contact" component={Contacts}/>
 <Route path="/shopping-cart" component={ShoppingCart}/>
-<Route path="/" component={ConstantSecond}/>
+<Route path="/" component={WrapConstentSecond}/>
 <Route path="/products/*-idCategory/:idPage/:price" component={ConstantSecond}/>
-<Route path="/post-new" component={ConstantSecond}/>
+{/* <Route path="/post-new" component={ConstantSecond}/> */}
 <Route path="/update-user" component={ConstantSecond}/>
 <Route path="/products-sale/:idPage/:price" component={ConstantSecond}/>
-<Route path="/products-search/:textSearch/:idPage/:price" component={SearchProducts} />
-
+<Route path="/products-hot/:idPage/:price" component={ConstantSecond}/>
+<Route path="/products-myself/:idPage/:price" component={ConstantSecond}/>
+{/* <Route path="/products-search/:textSearch/:idPage/:price" component={SearchProducts} /> */}
+{/* <Route exact path="/" component={HomeRight} /> */}
 </Layout>
 <Route component={NoMatch} />
             </Switch>

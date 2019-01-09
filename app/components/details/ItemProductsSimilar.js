@@ -56,7 +56,11 @@ class ItemProductsSimilar extends Component {
 
 
       <div className="thumbnail">
-      <a href={`/details/${ChangeToSlug(this.props.data.title)}-${this.props.data.id}-${this.props.idCategory}`}><img className="img-responsive" src={`/images/upload/${this.handleLinkImage()}`} alt="image_products" /></a>
+      <a href={`/details/${ChangeToSlug(this.props.data.title)}-${this.props.data.id}-${this.props.idCategory}`}>
+      <div className="wrap-img">
+      <img className="img-item" src={`/images/upload/${this.handleLinkImage()}`} alt="image_products" />
+      </div>
+      </a>
       <div className="caption">
         <a href={`/details/${ChangeToSlug(this.props.data.title)}-${this.props.data.id}-${this.props.data.categoryId.id}`}><h5>{this.props.data.title}</h5></a>
         <p className="price">

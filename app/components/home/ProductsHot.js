@@ -6,12 +6,12 @@ class ProductsHot extends Component {
         return (
         <div className="products-hot">
             <div className="top-products-right">
-              <span className="text-right"><a href="#">Xem Thêm</a></span>
+              <span className="text-right"><a href="/products-hot/1/0">Xem Thêm</a></span>
               <h4>Sản Phẩm Hot</h4>
             </div>
             <ListProductsHot/>
         </div>
-          
+
         );
     }
 }

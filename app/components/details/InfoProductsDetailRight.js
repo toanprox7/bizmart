@@ -35,11 +35,21 @@ class InfoProductsDetailRight extends Component {
       return null;
     }
   }
+
+
+  createMarkup(){
+    return {__html: 'First &middot; Second'};
+  }
+// componentDidMount() {
+//   this.refs.content.innerHTML = "<b>Hello</b>";
+// }
+
     render() {
       const dataProduct = this.checkProducts();
      const dataPhone = this.checkPhone();
      const dataUsername = this.checkUsername();
-     console.log(dataProduct)
+const {dangerouslySetInnerHTML} =this.props;
+    //  console.log(dataProduct)
     //  console.log(dataUser,"data user");
         return (
         <div className="info-products-details">
@@ -65,18 +75,19 @@ class InfoProductsDetailRight extends Component {
             </div>
             <div className="info-details">
               <h3>Thông tin chi tiết:</h3>
-              <p>
-                {dataProduct.content}
-                <a href="#">Xem thêm</a>
-              </p>
+              <div dangerouslySetInnerHTML={{ __html: dataProduct.content }} />
+                {/* {dataProduct.content} */}
+                {/* <a href="#">Xem thêm</a> */}
+              {/* </div> */}
+
             </div>
             <div className="commitment">
-              <h3>Cam kết:</h3>
+              {/* <h3>Cam kết:</h3>
               <p>
                 Giao hàng đúng thời hạn
                 Free Ship các đơn  có Giá &gt; 200.000đ
                 Hàng lỗi có thể đổi lại hàng khí đã nhận được hàng
-              </p>
+              </p> */}
             </div>
             <div className="two-buttons-main">
               <div className="button-add-cart">

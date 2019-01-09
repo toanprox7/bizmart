@@ -54,17 +54,30 @@ handleCheck(startl,endl){
 var linkPage = window.location.href;
 if(linkPage.indexOf('/products-search/') != -1){
 let textSearch =this.props.match.params.textSearch;
-  this.props.history.push(`/products-search/${textSearch}/1/${startl}-${endl}`);
-  window.location.reload();
+  // this.props.history.push();
+  window.location.href =`/products-search/${textSearch}/1/${startl}-${endl}`;
 }else if(linkPage.indexOf('/products-sale/') != -1){
-  this.props.history.push(`/products-sale/1/${startl}-${endl}`);
-  window.location.reload();
-}else if(linkPage.indexOf('/products/') != -1){
+  // this.props.history.push(`/products-sale/1/${startl}-${endl}`);
+  // window.location.reload();
+  window.location.href =`/products-sale/1/${startl}-${endl}`;
+}
+else if(linkPage.indexOf('/products-hot/') != -1){
+  // this.props.history.push(`/products-sale/1/${startl}-${endl}`);
+  // window.location.reload();
+  window.location.href =`/products-hot/1/${startl}-${endl}`;
+}
+else if(linkPage.indexOf('/products-myself/') != -1){
+  // this.props.history.push(`/products-sale/1/${startl}-${endl}`);
+  // window.location.reload();
+  window.location.href =`/products-myself/1/${startl}-${endl}`;
+}
+else if(linkPage.indexOf('/products/') != -1){
 // console.log(this.props.match.params.0);
 let obj=this.props.match.params;
 let textCategory =obj[Object.keys(obj)[0]];
-  this.props.history.push(`/products/${textCategory}-${this.props.match.params.idCategory}/1/${startl}-${endl}`);
-  window.location.reload();
+  // this.props.history.push(`/products/${textCategory}-${this.props.match.params.idCategory}/1/${startl}-${endl}`);
+  // window.location.reload();
+  window.location.href =`/products/${textCategory}-${this.props.match.params.idCategory}/1/${startl}-${endl}`;
 }
 //  this.props.history.push()
 }

@@ -7,6 +7,8 @@ class ProductsPriceOutside extends Component {
             <Switch>
                <Route path="/products/*-:idCategory/:idPage/:price" component={ConstantProductsPrice} />
                <Route path="/products-sale/:idPage/:price" component={ConstantProductsPrice} />
+               <Route path="/products-hot/:idPage/:price" component={ConstantProductsPrice} />
+               <Route path="/products-myself/:idPage/:price" component={ConstantProductsPrice} />
                <Route path="/products-search/:textSearch/:idPage/:price" component={ConstantProductsPrice} />
 
             </Switch>

@@ -17,10 +17,11 @@ class PaginationProductsSaleRight extends Component {
     let start = price.slice(0,getStt);
     let end = price.slice(getStt+1,price.length);
     let self =this;
-    axios.post(`/productsapi/find`,{price:{ '>=': parseInt(start),'<=': parseInt(end) },limit:12,skip:skipStart}).then(function (res) {
+    axios.post(`/productsapi/find`,{price:{ '>=': parseInt(start),'<=': parseInt(end) },status:'active'}).then(function (res) {
       // console.log(res);
       self.setState({
-        totalProducts:res.data
+        totalProducts:res.data,
+        activePage:parseInt(pageNumber)
       });
     }).catch(function (err) {
       console.log(err);
@@ -29,11 +30,12 @@ class PaginationProductsSaleRight extends Component {
       var pageNumber =this.props.idPage;
       var skipStart = (pageNumber - 1) * 12;
       var self = this;
-      axios.post(`/productsapi/find`,{limit:12,skip:skipStart})
+      axios.post(`/productsapi/find`,{status:'active'})
         .then(function (res) {
           // console.log(res,"hii");
           self.setState({
-            totalProducts:res.data
+            totalProducts:res.data,
+            activePage:parseInt(pageNumber)
           });
         }).catch(function (err) {
           console.log(err);
@@ -46,8 +48,7 @@ class PaginationProductsSaleRight extends Component {
   }
 
   handleRedirect(numberPage){
-    this.props.history.push(`/products/${numberPage}/${this.props.price}`);
-    window.location.reload();
+    window.location.href=`/products-sale/${numberPage}/${this.props.price}`;
   }
   checkTotal(){
     if(this.state.totalProducts){

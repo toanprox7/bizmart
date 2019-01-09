@@ -1,16 +1,43 @@
 import React from 'react';
-
-
-export default class Header extends React.Component {
+import jwt from 'jsonwebtoken';
+import { withRouter,Link} from "react-router-dom";
+import createHistory from 'history/createBrowserHistory'
+// import {Link} from 'react-'
+const history = createHistory({
+  forceRefresh: false
+});
+class Header extends React.Component {
   constructor(props) {
     super(props);
   }
+
+componentWillMount() {
+  var self=this;
+  var tokenAdmin = localStorage.getItem('acess_admin');
+if(tokenAdmin){
+// console.log(tokenAdmin,"toke");
+try {
+  var decoded = jwt.verify(tokenAdmin, 'toanpro');
+if(!decoded){
+  this.props.history.push('/admin');
+}
+} catch(err) {
+  // err
+this.props.history.push('/admin');
+}
+
+}else if(!tokenAdmin){
+// this.props.history.push('/admin');
+this.props.history.push('/admin');
+}
+}
+
 
   render() {
     return (
       <div className="main-header">
       {/* Logo */}
-      <a href="index2.html" className="logo">
+      <a href="/" className="logo">
         {/* mini logo for sidebar mini 50x50 pixels */}
         <span className="logo-mini"><b>B</b>M</span>
         {/* logo for regular state and mobile devices */}
@@ -43,11 +70,16 @@ export default class Header extends React.Component {
                 {/* Menu Body */}
                 {/* Menu Footer*/}
                 <li className="user-footer">
-                  <div className="pull-left">
+                  {/* <div className="pull-left">
                     <a href="#" className="btn btn-default btn-flat">Profile</a>
-                  </div>
+                  </div> */}
                   <div className="pull-right">
-                    <a href="#" className="btn btn-default btn-flat">Sign out</a>
+                    <Link onClick={()=>{
+// history.replace('/admin');
+if(localStorage.getItem('acess_admin')){
+  localStorage.removeItem('acess_admin');
+}
+      }} to="/admin" className="btn btn-default btn-flat">Đăng xuất</Link>
                   </div>
                 </li>
               </ul>
@@ -61,3 +93,4 @@ export default class Header extends React.Component {
     );
   }
 }
+export default withRouter(Header);

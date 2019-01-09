@@ -2,7 +2,55 @@
     padding: 0;
     margin: 0;
 }
-
+.caption h5{
+  font-size: 16px;
+    margin: 0 0 5px 0;
+    height: 30px;
+}
+img.img-item{
+  width: 100%;
+}
+.thumbnail .wrap-img{
+  width: 100%;
+  height: 273px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+}
+.close-nav-list i{
+  font-size:"20px";
+  color:"white";
+}
+.close-nav-list i:hover{
+  color:"blue";
+}
+.close-nav-list i.fa.fa-close {
+  font-size: 25px;
+  color: white;
+  border: 1px solid #80808047;
+  background: #8080802b;
+  width: 50px;
+  height: 50px;
+  text-align: center;
+  cursor: pointer;
+  margin: 20px;
+  line-height: 50px;
+}
+.close-nav-list i.fa.fa-close:hover {
+  background: #ffffff30;
+}
+.list-category{
+  background: #dc2a3a;
+  min-height: 1024px;
+  position: absolute;
+  width: 100%;
+  top: -1024px;
+  z-index: 40000;
+  transition:0.6s;
+}
+.body-height-full{
+  height: 100% !important;
+}
 .see-more a{
   cursor: pointer;
 }
@@ -198,6 +246,8 @@ header.fixed hr.across-red-header {
     line-height: -19px;
     margin-top: -15px;
     margin-bottom: -8px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 
@@ -233,9 +283,11 @@ header.fixed hr.across-red-header {
   z-index: 20;
   height: 30px;
 }
-
+.top-menu-inside span i {
+  padding-right: 7px;
+}
 .search .input-group-btn {
-    border: 1px solid #dc2a3a;
+    /* border: 1px solid #dc2a3a; */
     background: #dc2a3a;
     /* line-height: 34px; */
 }
@@ -317,9 +369,9 @@ header.fixed #wrap-header-search-menu .shopping-cart i {
 }
 
 header.fixed #wrap-header-search-menu .search {
-  width: 60%;
+  width: 48%;
   /* padding-top: 40px; */
-  height: 40px;
+  height: 45px;
 }
 header .category-fixed{
     display: none;
@@ -334,6 +386,9 @@ header .category-fixed{
     display: inline;
     color:#dc2a3a;
 }
+.list-category .category-products{
+  display: block;
+}
 .category-list-icon-hidden{
     display: inline;
     color:#dc2a3a;
@@ -342,9 +397,16 @@ header .category-fixed{
 .category-list-icon-hidden a {
     display: block;
 }
+header.fixed #wrap-header-search-menu .search {
+  width: 90%;
+  /* padding-top: 40px; */
+  height: 45px;
+}
     .search-menu-aside .search{
         display: none;
-        width: 50%;
+        /* width: 50%; */
+        width: 90%;
+    height: 45px;
     }
     .search-menu-aside .search input{
         height: 30px;
@@ -393,6 +455,8 @@ header .category-fixed{
     /* float: right; */
     right: 0;
     z-index: 17;
+    /* transition:0.5s; */
+
 }
 
 .block-info-header ul {

@@ -1,5 +1,5 @@
 import Axios from 'axios';
-import {FETCH_USER_BY_ID_SUCCESS} from "./actionTypes";
+import {FETCH_USER_BY_ID_SUCCESS,FETCH_ALL_USERS} from "./actionTypes";
 const apiUrl = '/usersapi';
 export const fetchUserByIdSuccess = (user) => {
   return {
@@ -14,6 +14,26 @@ export const fetchUserById = (userId) => {
       .then(response => {
         // Handle data with sync action
         dispatch(fetchUserByIdSuccess(response.data));
+      })
+      .catch(error => {
+        throw(error);
+      });
+  };
+};
+
+export const fetchUserSuccess = (getUserLimit) => {
+  return {
+    type: FETCH_ALL_USERS,
+    getUserLimit
+  }
+};
+// Async Action
+export const fetchAllUser = (infoData) => {
+  return (dispatch) => {
+    return Axios.post(`${apiUrl}/find`,infoData )
+      .then(response => {
+        // Handle data with sync action
+        dispatch(fetchUserSuccess(response.data));
       })
       .catch(error => {
         throw(error);

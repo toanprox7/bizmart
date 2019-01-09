@@ -2,16 +2,18 @@ import React, { Component } from 'react';
 import {Link} from 'react-router-dom';
 import OwlCarousel from 'react-owl-carousel2';
 import "./styles/navOwl.css";
+import ItemProductsHot from './ItemProductsHot';
+import axios from 'axios';
 const options = {
     margin:10,
-    loop:true,
+    loop:false,
     dots:false,
     nav:true,
     responsive:{
       0:{
           items:1
       },
-      300:{
+      550:{
         items:2
       },
       773:{
@@ -21,152 +23,43 @@ const options = {
           items:4
       }
   },
-  autoplay:true
+  autoplay:false,
+  navText:["<i class='fa fa-arrow-left'></i>","<i class='fa fa-arrow-right'></i>"]
 };
 class ListProductsHot extends Component {
+  constructor(props) {
+    super(props);
+    this.state={
+
+    }
+  }
+componentDidMount() {
+  var self=this;
+axios.post('/productsapi/find',{
+limit:10,
+sort:'createdAt DESC',
+status:'active',
+level:2
+}).then(res => {
+self.setState({
+data:res.data
+})
+}).catch(err => console.log(err));
+}
+
     render() {
+      // console.log(this.state.data,"data");
         return (
-            // <div className="owl-carousel owl-one">
             <React.Fragment>
             <OwlCarousel ref="car" options={options} >
-              <div className="thumbnail">
-                <Link to="details"><img className="img-responsive" src="/images/hY27bh_simg_de2fe0_500x500_maxb.jpg" alt="img_product" /></Link>
-                <div className="caption">
-                  <Link to="details"><h5>Bộ quần áo nam</h5></Link>
-                  <p className="price">
-                    <span className="price-right">120.000</span>
-                    <span>240.000</span>
-                  </p>
-                  <div className="rating">
-                    <span className="fa fa-star checked" />
-                    <span className="fa fa-star checked" />
-                    <span className="fa fa-star checked" />
-                    <span className="fa fa-star" />
-                    <span className="fa fa-star" />
-                  </div>
-                </div>
-              </div>
-              <div className="thumbnail">
-                <Link to="details"><img className="img-responsive" src="/images/hY27bh_simg_de2fe0_500x500_maxb.jpg" alt="img_product" /></Link>
-                <div className="caption">
-                  <Link to="details"><h5>Bộ quần áo nam</h5></Link>
-                  <p className="price">
-                    <span className="price-right">120.000</span>
-                    <span>240.000</span>
-                  </p>
-                  <div className="rating">
-                    <span className="fa fa-star checked" />
-                    <span className="fa fa-star checked" />
-                    <span className="fa fa-star checked" />
-                    <span className="fa fa-star" />
-                    <span className="fa fa-star" />
-                  </div>
-                </div>
-              </div>
-              <div className="thumbnail">
-                <Link to="details"><img className="img-responsive" src="/images/hY27bh_simg_de2fe0_500x500_maxb.jpg" alt="img_product" /></Link>
-                <div className="caption">
-                  <Link to="details"><h5>Bộ quần áo nam</h5></Link>
-                  <p className="price">
-                    <span className="price-right">120.000</span>
-                    <span>240.000</span>
-                  </p>
-                  <div className="rating">
-                    <span className="fa fa-star checked" />
-                    <span className="fa fa-star checked" />
-                    <span className="fa fa-star checked" />
-                    <span className="fa fa-star" />
-                    <span className="fa fa-star" />
-                  </div>
-                </div>
-              </div>
-              <div className="thumbnail">
-                <Link to="details"><img className="img-responsive" src="/images/hY27bh_simg_de2fe0_500x500_maxb.jpg" alt="img_product" /></Link>
-                <div className="caption">
-                  <Link to="details"><h5>Bộ quần áo nam</h5></Link>
-                  <p className="price">
-                    <span className="price-right">120.000</span>
-                    <span>240.000</span>
-                  </p>
-                  <div className="rating">
-                    <span className="fa fa-star checked" />
-                    <span className="fa fa-star checked" />
-                    <span className="fa fa-star checked" />
-                    <span className="fa fa-star" />
-                    <span className="fa fa-star" />
-                  </div>
-                </div>
-              </div>
-              <div className="thumbnail">
-                <Link to="details"><img className="img-responsive" src="/images/hY27bh_simg_de2fe0_500x500_maxb.jpg" alt="img_product" /></Link>
-                <div className="caption">
-                  <Link to="details"><h5>Bộ quần áo nam</h5></Link>
-                  <p className="price">
-                    <span className="price-right">120.000</span>
-                    <span>240.000</span>
-                  </p>
-                  <div className="rating">
-                    <span className="fa fa-star checked" />
-                    <span className="fa fa-star checked" />
-                    <span className="fa fa-star checked" />
-                    <span className="fa fa-star" />
-                    <span className="fa fa-star" />
-                  </div>
-                </div>
-              </div>
-              <div className="thumbnail">
-                <Link to="details"><img className="img-responsive" src="/images/hY27bh_simg_de2fe0_500x500_maxb.jpg" alt="img_product" /></Link>
-                <div className="caption">
-                  <Link to="details"><h5>Bộ quần áo nam</h5></Link>
-                  <p className="price">
-                    <span className="price-right">120.000</span>
-                    <span>240.000</span>
-                  </p>
-                  <div className="rating">
-                    <span className="fa fa-star checked" />
-                    <span className="fa fa-star checked" />
-                    <span className="fa fa-star checked" />
-                    <span className="fa fa-star" />
-                    <span className="fa fa-star" />
-                  </div>
-                </div>
-              </div>
-              <div className="thumbnail">
-                <Link to="details"><img className="img-responsive" src="/images/hY27bh_simg_de2fe0_500x500_maxb.jpg" alt="img_product" /></Link>
-                <div className="caption">
-                  <Link to="details"><h5>Bộ quần áo nam</h5></Link>
-                  <p className="price">
-                    <span className="price-right">120.000</span>
-                    <span>240.000</span>
-                  </p>
-                  <div className="rating">
-                    <span className="fa fa-star checked" />
-                    <span className="fa fa-star checked" />
-                    <span className="fa fa-star checked" />
-                    <span className="fa fa-star" />
-                    <span className="fa fa-star" />
-                  </div>
-                </div>
-              </div>
-              <div className="thumbnail">
-                <Link to="details"><img className="img-responsive" src="/images/hY27bh_simg_de2fe0_500x500_maxb.jpg" alt="img_product" /></Link>
-                <div className="caption">
-                  <Link to="details"><h5>Bộ quần áo nam</h5></Link>
-                  <p className="price">
-                    <span className="price-right">120.000</span>
-                    <span>240.000</span>
-                  </p>
-                  <div className="rating">
-                    <span className="fa fa-star checked" />
-                    <span className="fa fa-star checked" />
-                    <span className="fa fa-star checked" />
-                    <span className="fa fa-star" />
-                    <span className="fa fa-star" />
-                  </div>
-                </div>
-              </div>	
-            {/* </div> */}
-           </OwlCarousel>
+
+
+           {this.state.data && this.state.data.length > 0?this.state.data.map((item,index) => {
+
+ return <ItemProductsHot key={index} data={item} />
+
+           }):null}
+            </OwlCarousel>
            </React.Fragment>
         );
     }

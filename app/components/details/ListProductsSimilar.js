@@ -13,7 +13,7 @@ const options = {
       0:{
           items:1
       },
-      300:{
+      550:{
         items:2
       },
       773:{
@@ -23,7 +23,8 @@ const options = {
           items:4
       }
   },
-  autoplay:false
+  autoplay:false,
+  navText:["<i class='fa fa-arrow-left'></i>","<i class='fa fa-arrow-right'></i>"]
 };
 
 class ListProductsSimilar extends Component {

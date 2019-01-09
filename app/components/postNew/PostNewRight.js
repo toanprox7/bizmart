@@ -6,6 +6,9 @@ import DropzoneWithPreview from './DropzoneWithPreview';
 import axios from "axios";
 import {connect} from "react-redux";
 import Select from 'react-select'
+import { AvForm, AvField } from 'availity-reactstrap-validation';
+import CKEditor from '@ckeditor/ckeditor5-react';
+import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 // import ImageUploader from 'react-images-upload';
 // import 'react-select2-wrapper/css/select2.css';
 // const uuidv1 = require('uuid/v1');
@@ -34,7 +37,8 @@ handleChange = (category) => {
     // console.log("halo")
     if(!localStorage.getItem("tokenUser")){
       this.props.history.push("/login");
-      window.location.reload();
+      window.location.href="/login";
+
     }
   }
   // componentWillReceiveProps(nextProps) {
@@ -55,16 +59,20 @@ componentWillReceiveProps(nextProps) {
     id:nextProps.dataUser[0].id
   });
   if(!nextProps.dataUser[0].phone_number || nextProps.dataUser[0].phone_number == ""){
-    this.props.history.push("/update-user");
-    window.location.reload();
+    // this.props.history.push("/update-user");
+    // window.location.reload();
+    window.location.href="/update-user";
   }
 }
 
   handleChangeInput=(e)=>{
     e.preventDefault();
+    // console.log(this.refs.title,"title");
+var {name}= e.target;
+var {value}= e.target;
     this.setState({
-      title: this.refs.title.value,
-      contentDes:this.refs.contentDes.value,
+     [name]:value,
+      // contentDes:this.refs.contentDes.value,
       // category:this.refs.category.value,
       price:this.refs.price.state.numAsString,
 
@@ -104,59 +112,130 @@ componentWillReceiveProps(nextProps) {
        return null
      }
    }
-   handleSubmitPost=() =>{
-     let {title,price,contentDes,image,id} = this.state;
-     let category = this.state.category.value;
-     if(title != "" && price != "" && contentDes != "" && image.length > 0 && id != "" && category != ""){
-      //  let categoryInt = parseInt(category);
-       var infoData = {
-         title:title,
-         price:price,
-         content:contentDes,
-         image:image,
-         usersId:id,
-         level:"1",
-         status:"active",
-         total_star:0,
-         categoryId:category
-       }
-       let self = this;
-       axios.get("/files/resizeImg").then(function (res) {
-        console.log(res);
-       }).catch(function (err) {
-        console.log(err);
-       })
-       axios.post("/productsapi/create",infoData)
-        .then(function (res) {
-          console.log(res)
-          self.props.history.push("/");
-        }).catch(function (err) {
-          throw err;
+   handleSubmitPost=(event, errors, values) =>{
+    var arrayErr=[];
+    if(this.refs.price.state.numAsString ==0){
+      arrayErr.push("err");
+      this.setState({
+        errPrice:"Giá sản phẩm không được để trống"
+      });
+      }else{
+        this.setState({
+          errPrice:""
         });
-     }else{
-       alert("ban vui long nhap day du thong tin truoc khi post");
+      }
+    if(this.state.contentDes =='<p>&nbsp;</p>'){
+      arrayErr.push("err");
+      this.setState({
+        errContent:"Nội dung sản phẩm không được để trống"
+      });
+      }else{
+        this.setState({
+          errContent:""
+        });
+      }
+    if(this.state.category == ""){
+      arrayErr.push("err");
+      this.setState({
+        errCategory:"Vui lòng lựa chọn danh mục"
+      });
+      }else{
+        this.setState({
+          errCategory:""
+        });
+      }
+    if(this.state.title == ""){
+      arrayErr.push("err");
+      }
+
+    if(this.state.image.length == 0){
+      arrayErr.push("err");
+      this.setState({
+        errImage:"Ảnh đăng không được để trống"
+      });
+      }else{
+        this.setState({
+          errImage:""
+        });
+      }
+
+
+     if(arrayErr.length === 0 && errors.length ===0){
+      //  console.log("ngon ko loi");
+      let {title,price,contentDes,image,id} = this.state;
+      let category = this.state.category.value;
+      var infoData = {
+        title:title,
+        price:price,
+        content:contentDes,
+        image:image,
+        usersId:id,
+        level:"1",
+        status:"active",
+        total_star:0,
+        categoryId:category
+      }
+      let self = this;
+      axios.get("/files/resizeImg").then(function (res) {
+       console.log(res);
+      }).catch(function (err) {
+       console.log(err);
+      })
+      axios.post("/productsapi/create",infoData)
+       .then(function (res) {
+         console.log(res)
+         self.props.history.push("/");
+        //  window.location.href=
+       }).catch(function (err) {
+         throw err;
+       });
      }
    }
+   handleBlurPrice(e){
+    // console.log(e.target,"target");
+    // console.log(this.refs.price.state.numAsString,"ref");
+    let price=this.refs.price.state.numAsString;
+    if(e.target.value.length ==0){
+    this.setState({
+      errPrice:"Giá sản phẩm không được để trống"
+    });
+    }
+      }
     render() {
       // console.log(this.checkCategory(),"data root")
       const { selectedOption } = this.state;
-      // const options = this.listCategory();
-      // console.log(options,"options");
-      // console.log(dataUser,"user");
         return (
         <div className="post-new">
           <div className="block-post-new">
             <div className="title-post-new">
               <h3>Đăng tin rao</h3>
             </div>
+            <AvForm onSubmit={(event, errors, values)=>this.handleSubmitPost(event, errors, values)}>
             <div className="block-info-product-post">
               <div className="title-info-post">
-                <label>Tiêu đề</label>
-                <input onChange={this.handleChangeInput} type="text" name="title" ref="title"/>
+              <AvField style={{marginBottom:0}} onChange={(e) => this.handleChangeInput(e)} ref="title" name="title" placeholder="Vui lòng nhập tên sản phẩm" label="Tên sản phẩm" type="text" validate={{
+              required: {value: true, errorMessage: 'Tên sản phẩm không được để trống'},
+              pattern: {value: '^[A-Za-zAÁÀẢÃẠÂẤẦẨẪẬĂẮẰẲẴẶEÉÈẺẼẸÊẾỀỂỄỆIÍÌỈĨỊOÓÒỎÕỌÔỐỒỔỖỘƠỚỜỞỠỢUÚÙỦŨỤƯỨỪỬỮỰYÝỲỶỸỴĐaáàảãạâấầẩẫậăắằẳẵặeéèẻẽẹêếềểễệiíìỉĩịoóòỏõọôốồổỗộơớờởỡợuúùủũụưứừửữựyýỳỷỹỵđ ]+$', errorMessage: 'tên sản phẩm bạn nhập không đúng'},
+              maxLength: {value: 50, errorMessage: 'tên sản phẩm phải chứa nhiều nhất 50 ký tự '}
+            }} />
+                {/* <label>Tiêu đề</label>
+                <input onChange={this.handleChangeInput} type="text" name="title" ref="title"/> */}
               </div>
               <div className="content-des-info-post">
                 <label>Nội dung mô tả</label>
-                <textarea onChange={this.handleChangeInput} ref="contentDes" placeholder="Điền nội dung chi tiết bằng tiếng việt có dấu" />
+                <CKEditor
+                    editor={ ClassicEditor }
+                    data={this.state.contentDes}
+                    onChange={ ( event, editor ) => {
+                        const contentDes = editor.getData();
+                        // console.log(data);
+                        // if(data)
+                        this.setState({contentDes});
+                    } }
+
+                />
+                <div class="invalid-feedback">{this.state.errContent?this.state.errContent:null}</div>
+                {/* <textarea onChange={this.handleChangeInput} ref="contentDes" placeholder="Điền nội dung chi tiết bằng tiếng việt có dấu" /> */}
               </div>
               <div className="img-products-info-post">
                 <h3>Hình ảnh sản phẩm</h3>
@@ -166,6 +245,7 @@ componentWillReceiveProps(nextProps) {
                   {/* <input type="file" name="file" id="file" className="inputfile" />
                   <label htmlFor="file"><img src="/images/upload.png" /><span>Tải ảnh lên</span></label> */}
                    <DropzoneWithPreview />
+                   <div class="invalid-feedback">{this.state.errImage?this.state.errImage:null}</div>
                    <div className="select-custom">
                       {/* <select onChange={this.handleChangeInput} defaultValue={this.state.category} ref="category">
                         <option value="">Chọn danh mục</option>
@@ -173,13 +253,17 @@ componentWillReceiveProps(nextProps) {
                       </select> */}
 
                   {this.checkCategory()}
+                  <div class="invalid-feedback">{this.state.errCategory?this.state.errCategory:null}</div>
                     </div>
                 </div>
               </div>
               <div className="price-info-post">
-                <p>Giá</p>
+              <p>Giá</p>
+              <NumberFormat onChange={(e) => this.handleChangeInput(e)} maxLength="20" minLength="5" ref="price" onBlur={(e) => this.handleBlurPrice(e)} placeholder="Nhập giá sản phẩm" thousandSeparator={true} suffix={'đ'} />
+              <div class="invalid-feedback">{this.state.errPrice?this.state.errPrice:null}</div>
+                {/* <p>Giá</p>
                 <NumberFormat
-                onChange={this.handleChangeInput} ref="price" name="price" thousandSeparator={'.'} decimalSeparator={','} suffix={'đ'} />
+                onChange={this.handleChangeInput} ref="price" name="price" thousandSeparator={'.'} decimalSeparator={','} suffix={'đ'} /> */}
                 {/* <p className="price-info-post red">0 nghìn đồng</p> */}
               </div>
               <div className="user-sell-phone-info-post">
@@ -203,9 +287,10 @@ componentWillReceiveProps(nextProps) {
                 <input disabled value={this.state.email} type="email" placeholder="Nhập email để được tạo tài khoản miễn phí" />
               </div>
               <div className="button-post-new">
-                <button onClick={this.handleSubmitPost}>Đăng tin</button>
+                <button>Đăng tin</button>
               </div>
             </div>
+            </AvForm>
           </div>
         </div>
         );

@@ -19,7 +19,7 @@ componentWillMount() {
     let start = price.slice(0,getStt);
     let end = price.slice(getStt+1,price.length);
     let self =this;
-    Axios.post(`/productsapi/findProducts`,{title: {contains:this.props.match.params.textSearch},price:{ '>=': parseInt(start),'<=': parseInt(end) },limit:12,skip:skipStart}).then(function (res) {
+    Axios.post(`/productsapi/findProducts`,{title: {contains:this.props.match.params.textSearch},price:{ '>=': parseInt(start),'<=': parseInt(end) },limit:12,status:'active',sort:'createdAt DESC',skip:skipStart}).then(function (res) {
       // console.log(res);
       self.setState({
         data:res.data.data

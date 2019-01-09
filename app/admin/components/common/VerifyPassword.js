@@ -13,12 +13,13 @@ var self=this;
     jwt.verify(tokenPass, 'toanpro', function(err, decoded) {
       if(err){
         alert("token đã hết hạn hoặc không đúng vui lòng thử lại");
-        self.props.history.push('/admin');
-        window.location.reload();
+        // self.props.history.push('/admin');
+        window.location.href="/admin";
       }else if(decoded.email){
         localStorage.setItem("access_email",tokenPass);
-        self.props.history.push("/admin/forget-password.html");
-        window.location.reload();
+        // self.props.history.push("/admin/forget-password.html");
+    
+        window.location.href="/admin/forget-password.html";
       }
     });
   }

@@ -6,8 +6,8 @@ class SpendMyself extends Component {
         return (
 <div className="spend-myself">
   <div className="top-products-right">
-    <span className="text-right"><a href="#">Xem Thêm</a></span>
-    <h4>Dành riêng cho bạn</h4>
+    <span className="text-right"><a href="/products-myself/1/0">Xem Thêm</a></span>
+    <h4>Sản Phẩm đánh giá cao</h4>
   </div>
   <ListSpendMyself/>
 </div>

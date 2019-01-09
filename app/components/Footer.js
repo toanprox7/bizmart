@@ -1,10 +1,39 @@
 import React, { Component } from 'react';
 import {Link} from "react-router-dom";
+import OwlCarousel from 'react-owl-carousel2';
+const options = {
+  margin:10,
+  loop:false,
+  dots:false,
+  nav:true,
+  responsive:{
+    0:{
+        items:1
+    },
+300:{
+  items:2
+},
+    550:{
+      items:3
+    },
+    773:{
+        items:4
+    },
+    1000:{
+        items:5
+    }
+},
+autoplay:false,
+navText:["<i class='fa fa-arrow-left'></i>","<i class='fa fa-arrow-right'></i>"]
+};
 class Footer extends Component {
 constructor(props) {
   super(props);
   this.state={
-    displayFoot:"block"
+    displayFoot:"block",
+    displayIntro:false,
+    displaySubpost:false,
+    displayNew:false
   }
 }
 
@@ -30,7 +59,7 @@ constructor(props) {
               <div className="container">
                 <div className="row">
                   <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                    <div className="owl-carousel owl-two">
+                  <OwlCarousel ref="car" options={options} >
                       <div className="item">
                         <a href="#"><img src="/images/logo_aliki.png" alt="logo" /></a>
                       </div>
@@ -46,7 +75,10 @@ constructor(props) {
                       <div className="item">
                         <a href="#"><img src="/images/logo_aliki.png" alt="logo" /></a>
                       </div>
-                    </div>
+                      <div className="item">
+                        <a href="#"><img src="/images/logo_aliki.png" alt="logo" /></a>
+                      </div>
+                      </OwlCarousel>
                   </div>
                 </div>
               </div>
@@ -55,35 +87,50 @@ constructor(props) {
               <div className="container">
                 <div className="row">
                   <div className="col-xs-12 col-sm-12 col-md-4 col-lg-4 wrap-info-main-footer-inside">
-                    <div className="title-display-footer title-info-main-footer1">
+                    <div onClick={() =>{
+this.setState({
+displayIntro:!this.state.displayIntro
+});
+                    }} className="title-display-footer title-info-main-footer1">
                       <h2>Giới thiệu</h2>
                     </div>
-                    <ul className="info-display-main-footer block-info-footer-li1">
-                      <li><Link to="/admin">Về chúng tôi</Link></li>
+                    <ul className={this.state.displayIntro ===true?"active-footer":"info-display-main-footer"}>
+                      <li><a href="/admin">Về chúng tôi</a></li>
                       <li><a href="#">Dịch vụ cung cấp</a></li>
                       <li><a href="#">Quy định sử dụng</a></li>
-                      <li><Link to="contact">Thông tin liên hệ</Link></li>
+                      <li><a href="/contact">Thông tin liên hệ</a></li>
                     </ul>
                   </div>
                   <div className="col-xs-12 col-sm-12 col-md-4 col-lg-4 wrap-info-main-footer-inside">
-                    <div className="title-display-footer title-info-main-footer2">
+                    <div onClick={() =>{
+this.setState({
+displaySubpost:!this.state.displaySubpost
+});
+                    }} className="title-display-footer title-info-main-footer2">
                       <h2>Hỗ trợ khách hàng</h2>
                     </div>
-                    <ul className="info-display-main-footer block-info-footer-li2">
+                     <ul className={this.state.displaySubpost ===true?"active-footer":"info-display-main-footer"}>
                       <li><a href="#">Hướng dẫn mua hàng</a></li>
                       <li><a href="#">Chính sách giao hàng</a></li>
                       <li><a href="#">Bảo mật thông tin</a></li>
                       <li><a href="#">Bảo hành sản phẩm</a></li>
                     </ul>
+
                   </div>
                   <div className="col-xs-12 col-sm-12 col-md-4 col-lg-4 wrap-info-main-footer-inside">
-                    <div className="title-display-footer title-info-main-footer3">
+                    <div onClick={() =>{
+this.setState({
+displayNew:!this.state.displayNew
+});
+                    }} className="title-display-footer title-info-main-footer3">
                       <h2>Tin tức</h2>
                     </div>
-                    <ul className="info-display-main-footer block-info-footer-li3">
+
+                   <ul className={this.state.displayNew ===true?"active-footer":"info-display-main-footer"}>
                       <li><a href="#">Khuyến mãi</a></li>
                       <li><a href="#">Tin tức</a></li>
                     </ul>
+
                   </div>
                 </div>
                 <div className="row">

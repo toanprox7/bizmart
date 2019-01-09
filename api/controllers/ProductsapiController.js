@@ -43,7 +43,45 @@ module.exports = {
         data: data
       })
     })
-  }
+  },
+  search:function (req,res,next) {
+    Productsapi.find(req.params.all()).populate('usersId').populate('categoryId').exec(function (err,data) {
+      if(err) return res.serverError(err);
+      return res.json(data)
+    })
+  },
+  destroy:function (req,res,next) {
+    Ratingapi.find({productsId:req.params.all().id},function (err,hasRating) {
+      if(err) {console.log(err,"Err 1");}
+      else if(!hasRating || hasRating.length == 0){
+        Productsapi.destroy(req.params.all(), function (err,data) {
+          if(err) return err
+      return res.json(data);
+        })
+      }else if(hasRating && hasRating.length !=0){
+        Ratingapi.destroy({productsId:req.params.all().id}, function (err,data) {
+          if(err){console.log(err)}else{
+            Productsapi.destroy(req.params.all(), function (err,data) {
+              if(err) return err
+          return res.json(data);
+            })
+          }
+          })
+      }
 
+    })
+
+
+  },
+  updateData:function (req,res) {
+    Productsapi.update({id:req.params.all().id}).set(req.params.all()).exec(function (err,data) {
+        if(err){
+          console.log(err)
+        }else{
+          console.log(data);
+          return res.json(data)
+        }
+      })
+  }
 };
 
