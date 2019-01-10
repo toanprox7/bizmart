@@ -2,6 +2,10 @@ import React ,{ Component }  from 'react';
 import ReactDOM from 'react-dom';
 import GoogleLogin from 'react-google-login';
 import axios from "axios";
+import {withRouter} from "react-router-dom";
+import {checkAuthenticate} from "../../actions/settings";
+import { addDataUserLocal } from "../../actions";
+import {connect} from "react-redux";
 // import {withRouter} from "react-router-dom";
 var jwt = require("jsonwebtoken");
 class GoogleLoginButton extends Component {
@@ -27,20 +31,20 @@ class GoogleLoginButton extends Component {
       await axios.post("/usersapi/createGoogleApi",infoApiUserFacebook)
         .then(function(res){
 if(res.data === "exits" || res.data === "created"){
-  self.handleRedirect();
+  self.handleRedirect(infoApiUserFacebook);
 }
         }).catch(function(err){
           throw err
         })
-
-
     }
   }
-  handleRedirect = () => {
-    window.location.href = "/";
+  handleRedirect = (infoData) => {
+    this.props.addUserLocal(infoData);
+    this.props.isAuthenticate(true);
+    this.props.history.push("/");
   }
   responseGoogle =async (response) => {
-    console.log(response.w3);
+    // console.log(response.w3);
     await this.setState({
       email:response.w3.U3,
       username:response.w3.ig,
@@ -78,4 +82,13 @@ if(res.data === "exits" || res.data === "created"){
   }
 }
 
-export default GoogleLoginButton;
+
+const mapDispatchToProps = (dispatch, ownProps) => {
+  return {
+    isAuthenticate: (getIsAuthenticate) => {
+      dispatch(checkAuthenticate(getIsAuthenticate))
+    },
+    addUserLocal: getDataUserLocal => dispatch(addDataUserLocal(getDataUserLocal)),
+  }
+}
+export default connect(null, mapDispatchToProps)(withRouter(GoogleLoginButton))

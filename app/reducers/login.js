@@ -6,7 +6,7 @@ import {EDIT_DATA_PAGINATION} from '../actions';
 
       }
   ],
-  dataPagination:"test"
+  isAuthenticate:{}
 }
 const loginReducer = (state = loginInitialState, action) => {
     switch (action.type) {
@@ -14,6 +14,11 @@ const loginReducer = (state = loginInitialState, action) => {
         return {
             ...state,
             dataPagination:[...action.getInfoPagination]
+         }
+        case "CHECK_AUTHENTICATE":
+        return {
+            ...state,
+            isAuthenticate:action.authen
          }
         default:
             return state

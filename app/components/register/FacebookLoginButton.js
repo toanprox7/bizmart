@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import FacebookLogin from 'react-facebook-login/dist/facebook-login-render-props';
 import axios from "axios";
 import {withRouter} from "react-router-dom";
+import {checkAuthenticate} from "../../actions/settings";
+import { addDataUserLocal } from "../../actions";
+import {connect} from "react-redux";
 // import fs from "fs";
 var jwt = require("jsonwebtoken");
 // var https = require('https');
@@ -36,7 +39,7 @@ class FacebookLoginButton extends Component {
       await axios.post("/usersapi/createFacebookApi",infoApiUserFacebook)
         .then(function(res){
 if(res.data === "exits" || res.data === "created"){
-  self.handleRedirect();
+  self.handleRedirect(infoApiUserFacebook);
 }
         }).catch(function(err){
           throw err
@@ -45,8 +48,12 @@ if(res.data === "exits" || res.data === "created"){
 
     }
   }
-  handleRedirect = () => {
-    window.location.href = "/";
+  handleRedirect = (infoData) => {
+    // window.location.href = "/";
+    // console.log(infoData);
+    this.props.addUserLocal(infoData);
+    this.props.isAuthenticate(true);
+    this.props.history.push("/");
   }
   responseFacebook=async (res)=>{
 // console.log(res.picture.data.url);
@@ -87,4 +94,12 @@ if(res.data === "exits" || res.data === "created"){
   }
 }
 
-export default withRouter(FacebookLoginButton);
+const mapDispatchToProps = (dispatch, ownProps) => {
+  return {
+    isAuthenticate: (getIsAuthenticate) => {
+      dispatch(checkAuthenticate(getIsAuthenticate))
+    },
+    addUserLocal: getDataUserLocal => dispatch(addDataUserLocal(getDataUserLocal)),
+  }
+}
+export default connect(null, mapDispatchToProps)(withRouter(FacebookLoginButton))

@@ -37,7 +37,7 @@ handleChange(e){
   });
 }
 handleUpdateSubmit(event, errors, values){
-  console.log(errors,"err");
+  // console.log(errors,"err");
   var self=this;
   if(errors.length === 0){
     var info={
@@ -126,5 +126,6 @@ const mapStateToProps = (state, ownProps) => {
     dataUser: state.usersReducer.dataUserLocal
   }
 }
+
 export default connect(mapStateToProps)(InfoUserRight)
 

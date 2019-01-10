@@ -7,15 +7,19 @@ import axios from "axios";
 import ItemSearch from "./ItemSearch";
 import { withRouter } from "react-router-dom";
 import ConstantCategoryLeft from "../containers/constantInside/ConstantCategoryLeft";
+import {checkAuthenticate} from "../actions/settings";
+import {DirectLink, Element, Events, animateScroll as scroll, scrollSpy, scroller } from 'react-scroll'
+
 var _ = require('lodash');
 var jwt = require("jsonwebtoken");
 class Header extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      dataUser: "",
+      dataUser: null,
       displayHead: "block",
       disPlaySearch: "hidden",
+      isAuthentication:false,
       dataSearch: [],
       textSearch: "",
       displayInputSearch:false,
@@ -33,28 +37,19 @@ class Header extends Component {
 
   componentWillMount() {
     // console.log(window.location.pathname == '/admin');
-    var link = window.location.pathname;
-
-    if (link.indexOf('/admin') != -1) {
-      this.setState({
-        displayHead: 'none'
-      });
-    } else {
-      this.setState({
-        displayHead: 'block'
-      });
-    }
     // console.log("hello2")
+    // this.props.isAuthenticate(true);
     let tokenUser = localStorage.getItem("tokenUser");
     if (tokenUser) {
       if (tokenUser != "") {
         var self = this;
         jwt.verify(tokenUser, 'toanpro', function (err, decoded) {
-          self.setState({
-            displayHeadDropdown: "block",
-            displayHeadRight: "none"
-          });
+
           axios.get(`/usersapi/${decoded.id}`).then(function (res) {
+            // self.setState({
+            //   isAuthentication:true
+            // });
+            self.props.isAuthenticate(true)
             self.handleDataUser(self.props.addUserLocal(res.data));
           }).catch(function (err) {
             console.log(err)
@@ -62,14 +57,12 @@ class Header extends Component {
         });
       } else {
         this.setState({
-          displayHeadDropdown: "none",
-          displayHeadRight: "block"
+          isAuthentication:false
         });
       }
     } else {
       this.setState({
-        displayHeadDropdown: "none",
-        displayHeadRight: "block"
+        isAuthentication:false
       });
     }
     var self = this;
@@ -78,9 +71,19 @@ class Header extends Component {
     }).catch(function (err) {
       throw err
     })
-
-
   }
+  scrollToTop() {
+    window.scrollTo(0, 0);
+  }
+  componentWillReceiveProps(nextProps) {
+    // console.log(nextProps,"next props");
+    this.setState({
+      isAuthentication:nextProps.getIsAuthenticate,
+      dataUser:nextProps.getStateDataUserLocal[0]
+    });
+    // this.scrollToTop();
+  }
+
   handleDataUser = async (data) => {
     await this.setState({
       dataUser: data.getDataUserLocal
@@ -88,7 +91,7 @@ class Header extends Component {
   }
   handleLogout = () => {
     localStorage.removeItem("tokenUser");
-
+    this.props.isAuthenticate(false);
   }
   handleSearch = _.debounce((text) => {
     var self = this;
@@ -149,8 +152,8 @@ class Header extends Component {
     }
   }
   render() {
-    var image = (this.state.dataUser != "") ? this.state.dataUser.image : "/images/logo.png";
-    var username = (this.state.dataUser != "") ? this.state.dataUser.username : "Khach";
+    var {dataUser} = this.state;
+    var username = "Khach";
     return (
       <header id="head9009" style={{ display: this.state.displayHead }}>
         <div id="wrap-full-header">
@@ -161,21 +164,24 @@ class Header extends Component {
                   <span>1900 68 88</span>
                   <span><a href="/post-new" >Đăng tin miễn phí</a></span>
                 </div>
-                <div style={{ display: `${this.state.displayHeadDropdown}` }} className="dropdown dropdown-bizmart">
-                  <button className="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown"><img src={image} width={25} height={25} alt="image-profile" />
-                    {username} <i className="fa fa-caret-down" /></button>
+
+                {this.state.isAuthentication === true?(
+                  <div className="dropdown dropdown-bizmart">
+                  <button className="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown"><img src={dataUser?dataUser.image:null} width={25} height={25} alt="image-profile" />
+                    {dataUser?dataUser.username:null} <i className="fa fa-caret-down" /></button>
                   <ul className="dropdown-menu dropdown-menu-bizmart">
-                    <li><a href="/update-user">Cập nhật thông tin</a></li>
+                    <li><Link to="/update-user">Cập nhật thông tin</Link></li>
                     <li className="divider" />
-                    <li><a onClick={this.handleLogout} href="/">Đăng xuất</a></li>
+                    <li><Link onClick={this.handleLogout} to="/">Đăng xuất</Link></li>
                   </ul>
                 </div>
-
-                <div style={{ display: `${this.state.displayHeadRight}` }} className="across-right-top">
+                ):(
+                  <div className="across-right-top">
                   <span><i className="fa fa-user" />
-                    <a href="/login">Đăng nhập</a></span>
-                  <span><a href="/register">Đăng kí</a></span>
+                    <Link to="/login">Đăng nhập</Link></span>
+                  <span><Link to="/register">Đăng kí</Link></span>
                 </div>
+                )}
               </div>
             </div>
           </div>
@@ -208,7 +214,7 @@ class Header extends Component {
                 {this.state.displayInputSearch === true?null: (
  <div className="logo-bizmart">
  <a href="/">
-   <img src="/images/logo_bizmart.png" width="200px" className="img-thumbnail" alt="logo" />
+   <img src="/images/logo_bizmart.png" width="200px" className="img-responsive" alt="logo" />
  </a>
 </div>
                 )}
@@ -233,12 +239,17 @@ class Header extends Component {
                 </div>
 
                 <div className="icon-across-header">
-                  <ul>
-
-                    <li style={{ display: `${this.state.displayHeadRight}` }}><a href="/login">Đăng Nhập</a></li>
-                    <li style={{ display: `${this.state.displayHeadRight}` }}><a href="/register">Đăng Ký</a></li>
-                    <li><a href="/post-new">Đăng Tin Mới</a></li>
-                  </ul>
+                    {this.state.isAuthentication === true?(
+                       <ul>
+                      <li><Link to="/post-new">Đăng Tin Mới</Link></li>
+                      </ul>
+                    ):(
+                      <ul>
+                      <li><Link to="/login">Đăng Nhập</Link></li>
+                      <li><Link to="/register">Đăng Ký</Link></li>
+                      <li><Link to="/post-new">Đăng Tin Mới</Link></li>
+                      </ul>
+                    )}
                 </div>
                 {/* <div className="shopping-cart"> */}
                 {/* <Link to="shopping-cart"><i className="fa fa-cart-arrow-down"><span>1</span></i></Link> */}
@@ -290,12 +301,13 @@ class Header extends Component {
 }
 const mapDispatchToProps = (dispatch) => ({
   addUserLocal: getDataUserLocal => dispatch(addDataUserLocal(getDataUserLocal)),
-  addCategoryLocal: getDataCategoryLocal => dispatch(addDataCategoryLocal(getDataCategoryLocal))
-
+  addCategoryLocal: getDataCategoryLocal => dispatch(addDataCategoryLocal(getDataCategoryLocal)),
+  isAuthenticate: getIsAuthenticate => dispatch(checkAuthenticate(getIsAuthenticate))
 })
 const mapStateToProps = (state) => {
   return {
-    getStateDataUserLocal: state.usersReducer.dataUserLocal
+    getStateDataUserLocal: state.usersReducer.dataUserLocal,
+    getIsAuthenticate:state.loginReducer.isAuthenticate,
   }
 }
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Header));
