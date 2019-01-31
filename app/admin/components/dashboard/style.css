@@ -1,0 +1,20 @@
+.menu-btn-bizmart {
+  float: left;
+  color: white;
+  text-decoration: none;
+  /* line-height: 20px; */
+  height: 40px;
+  display: flex;
+  align-items: center;
+  background: #292929;
+  /* z-index: 1000; */
+  width: 40px;
+  justify-content: center;
+}
+.menu-btn-bizmart:hover {
+  background: green;
+  color: white;
+}
+.nav-right-bizmart{
+
+}

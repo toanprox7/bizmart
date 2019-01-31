@@ -1,0 +1,366 @@
+*{margin: 0;
+padding: 0;}
+.login .block-login .left-login .input-login .send-code input {
+  display: flex;
+  /* width: 90%; */
+  border-right: none;
+}
+
+.login .block-login .left-login .input-login .send-code {
+  display: flex;
+}
+
+.login .block-login .left-login .input-login .send-code .button-SendSms {
+  height: 45px;
+  width: 20%;
+  background: #dc2a3a;
+  border: 1px solid #b7b7b7;
+  border-left: none;
+  color: white;
+  font-size: 15px;
+  line-height: 45px;
+  text-align: center;
+  cursor: pointer;
+  /* margin: 0; */
+  /* padding: 0; */
+}
+.login .block-login .left-login .input-login .send-code .button-SendSms:hover{
+background: #ce1e2e;
+}
+.login .input-login .errMsg{
+  color:red
+}
+.forget-login a{
+  cursor: pointer;
+}
+.errFocusInput {
+    border: 1px solid red !important;
+    background: #ff000021;
+}
+.login-facebook {
+  text-align: center;
+  margin-bottom: 35px;
+}
+.login .block-login .left-login .forget-or-help-login .help-login a {
+    color: #7a7a7a;
+    border-left:1px solid;
+    padding-left:15px;
+    font-size:15px;
+}
+
+.right-login {
+    padding-top: 108px;
+}
+
+.left-login {
+    padding: 50px 50px 0 100px;
+    /* border-right: 1px solid grey; */
+    box-shadow: 40px 0px 40px #eaeaea;
+    padding-bottom: 100%;
+}
+
+.txt-fb {
+    background: #3b5a99;
+    width: 279px;
+    color: white;
+    text-align: center;
+    font-size: 21px;
+    border-radius: 0 10px 10px 0;
+    border-left: 2px solid #5e77a9;
+    cursor: pointer;
+    box-shadow: 0px 4px 5px #c7c7c7;
+}
+.txt-email {
+    background: #2991c7;
+    width: 279px;
+    color: white;
+    text-align: center;
+    font-size: 21px;
+    border-radius: 0 10px 10px 0;
+    border-left: 2px solid #50a3ce;
+    cursor: pointer;
+    box-shadow: 0px 4px 5px #c7c7c7;
+}
+
+.had-username {
+    font-size: 19px;
+}
+
+.or-login {
+    display: flex;
+    justify-content: center;
+    font-size: 25px;
+    margin: 35px 0;
+    color: #717171;
+}
+
+.button-login {
+    display: flex;
+    justify-content: center;
+}
+
+.button-login button {
+    color: #dc2a3a;
+    width: 375px;
+    height: 70px;
+    font-size: 40px;
+    border: 1px solid 403f40;
+    border-radius: 7px;
+    background: #f8f8f8;
+    text-transform: uppercase;
+}
+
+.button-login-email {
+    display: flex;
+    justify-content: center;
+}
+
+.button-login-fb {
+    display: flex;
+    justify-content: center;
+    height: 70px;
+    line-height: 70px;
+    cursor: pointer;
+    margin-bottom: 25px;
+    /* border: 1px solid; */
+    /* background: red; */
+}
+.button-login-email {
+    display: flex;
+    justify-content: center;
+    height: 70px;
+    line-height: 70px;
+    cursor: pointer;
+    margin-bottom: 25px;
+    /* border: 1px solid; */
+    /* background: red; */
+}
+.button-login-fb .fb-circle {
+    width: 100px;
+    border: 1px solid #3b5a99;
+    background: #3b5a99;
+    /* color: white; */
+    text-align: center;
+    line-height: 90px;
+    border-right: 2px solid #374154;
+    border-radius: 10px 0 0 10px;
+    box-shadow: 0px 4px 5px #c7c7c7;
+}
+.button-login-email .email-circle {
+    width: 100px;
+    border: 1px solid #2991c7;
+    background: #2991c7;
+    /* color: white; */
+    text-align: center;
+    line-height: 90px;
+    border-right: 2px solid #325161;
+    border-radius: 10px 0 0 10px;
+    box-shadow: 0px 4px 5px #c7c7c7;
+}
+
+.button-login-fb .fb-circle i {
+    width: 60px;
+    height: 60px;
+    border: 1px solid white;
+    /* position: absolute; */
+    background: white;
+    color: #3b5a99;
+    border-radius: 50%;
+    line-height: 60px;
+    text-align: center;
+    font-size: 40px;
+    /* margin: 0 auto; */
+    /* cursor: pointer; */
+}
+.button-login-email .email-circle i {
+    width: 60px;
+    height: 60px;
+    border: 1px solid white;
+    /* position: absolute; */
+    background: white;
+    color: #2991c7;
+    border-radius: 50%;
+    line-height: 60px;
+    text-align: center;
+    font-size: 40px;
+    /* margin: 0 auto; */
+    /* cursor: pointer; */
+}
+
+.checkbox-login {
+    display: flex;
+    justify-content: center;
+    padding-bottom: 20px;
+}
+
+.checkbox-login label {
+    color: #dc2a3a;
+    font-weight: normal;
+    font-size: 20px;
+}
+
+.login .block-login {
+    background: #f8f8f8;
+    /* padding-bottom: 40px; */
+    margin-bottom: 90px;
+}
+
+.login .top-login {
+    display: flex;
+    justify-content: space-between;
+    padding-bottom: 30px;
+    align-items: center;
+    margin-top: 38px;
+}
+
+.login .block-login .left-login .input-login input {
+    width: 100%;
+    height: 45px;
+    border: 1px solid #b7b7b7;
+    padding-left: 20px;
+}
+.login .block-login .left-login .input-login {
+margin-bottom: 42px;
+}
+.login .block-login .left-login .input-login.pass-padd input {
+    margin-bottom: 15px;
+}
+
+
+
+.login .block-login .left-login .forget-or-help-login {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.login .block-login .left-login .forget-or-help-login .forget-login a {
+    color: #dc2a3a;
+    font-size:15px;
+    padding-right:15px;
+}
+
+.login .block-login .left-login .input-login.send-code input {
+    /* display: flex; */
+    width: 90%;
+    border-right: none;
+}
+
+.login .block-login .left-login .input-login.send-code {
+    display: flex;
+}
+
+.login .block-login .left-login .input-login.send-code button {
+    height: 45px;
+    width: 20%;
+    background: #dc2a3a;
+    border: 1px solid #b7b7b7;
+    border-left: none;
+    color: white;
+    font-size: 16px;
+    /* margin: 0; */
+    /* padding: 0; */
+}
+
+.login .top-login .had-username span {
+    border-right: 1px solid grey;
+    padding-right: 13px;
+}
+
+.login .top-login .had-username a {
+    padding-left: 8px;
+    color: #007d90;
+}
+
+.login .top-login .title-login h3 {
+    margin: 0;
+    color: #dc2a3a;
+    font-size: 33px;
+}
+@media only screen and (max-width: 991px) {
+    .left-login {
+    padding: 50px 50px 0 100px;
+    /* border-right: 1px solid grey; */
+    box-shadow: 0px 0px 40px #eaeaea;
+    padding-left: 14%;
+    padding-bottom: 10%;
+}
+.login .top-login .title-login h3 {
+    margin: 0;
+    color: #dc2a3a;
+    font-size: 27px;
+}
+.had-username {
+    font-size: 15px;
+}
+.login .block-login .left-login .input-login input {
+    width: 100%;
+    margin-bottom: 30px;
+    height: 35px;
+    border: 1px solid #b7b7b7;
+    padding-left: 20px;
+}
+.login .block-login .left-login .forget-or-help-login .forget-login a {
+    color: #dc2a3a;
+    font-size: 13px;
+    padding-right: 15px;
+}
+.login .block-login .left-login .forget-or-help-login .help-login a {
+    color: #7a7a7a;
+    border-left: 1px solid;
+    padding-left: 15px;
+    font-size: 13px;
+}
+.right-login {
+    padding-top: 35px;
+}
+.checkbox-login label {
+    color: #dc2a3a;
+    font-weight: normal;
+    font-size: 16px;
+}
+.button-login button {
+    color: #dc2a3a;
+    width: 375px;
+    height: 60px;
+    font-size: 30px;
+    border: 1px solid 403f40;
+    border-radius: 7px;
+    background: #f8f8f8;
+    text-transform: uppercase;
+}
+.or-login {
+    display: flex;
+    justify-content: center;
+    font-size: 20px;
+    margin: 20px 0;
+    color: #717171;
+}
+.login .top-login {
+    display: flex;
+    /* justify-content: space-between; */
+     padding-bottom: 30px;
+     align-items: center;
+     margin-top: 38px;
+    flex-direction: column;
+    }
+}
+@media only screen and (max-width: 400px) {
+    .login .top-login .title-login h3 {
+    margin: 0;
+    color: #dc2a3a;
+    font-size: 24px;
+}
+.had-username {
+    font-size: 13px;
+}
+.login .block-login .left-login .forget-or-help-login .forget-login a {
+    color: #dc2a3a;
+    font-size: 11px;
+    padding-right: 15px;
+}
+.checkbox-login label {
+    color: #dc2a3a;
+    font-weight: normal;
+    font-size: 14px;
+}
+}

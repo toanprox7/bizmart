@@ -1,0 +1,36 @@
+.fa-check-circle{
+color: green;
+font-size: 25px;
+}
+
+.register .input-reg .errMsg{
+  color:red
+}
+
+.errFocusInput {
+    border: 1px solid red !important;
+    background: #ff000021;
+}
+button.my-facebook-button-class.metro {
+  background: #4267b2;
+  color: white;
+  border: 1px solid #3459a5;
+  width: 375px;
+  height: 70px;
+  border-radius: 10px;
+  font-size: 22px;
+}
+i.fa.fa-facebook {
+  background: white;
+  color: #4267b2;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  line-height: 35px;
+  margin-right: 35px;
+  padding-top: 5px;
+  font-size: 35px;
+  margin-top: 3px;
+  /* font-size: 45px; */
+  /* border-right: 6px solid black; */
+}
