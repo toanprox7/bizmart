@@ -3,14 +3,22 @@ import {Link} from "react-router-dom";
 import $ from "jquery";
 import {connect} from "react-redux";
 import "../styles/category.css";
+import { Collapse, Button, CardBody, Card } from 'reactstrap';
 class ConstantCategoryLeft extends Component {
   constructor(props) {
     super(props);
-    this.state={
-
-    }
+    this.toggle = this.toggle.bind(this);
+    this.state = { 
+      collapse1: false 
+    };
   }
-
+  toggle(data) {
+    console.log(data,"e day hihi");
+    var data2 = eval(`!this.state.${data}`);
+    var data3=eval(data);
+    console.log(data2,"dataa2")
+    this.setState({ collapse1: data2 });
+  }
   
   cay = (parentId) =>{
     if(this.props.dataCategory.length > 0){
@@ -86,15 +94,33 @@ class ConstantCategoryLeft extends Component {
       const dataCate =this.cay(0);
       // console.log(dataCate,"cay2");
       // console.log(this.mapping(this.cay(0,this.props.dataCategory)),"fddf")
+      const data=1;
         return (
             <div className="category-products">
             <div className="title-category-products">
               <h3>Danh mục sản phẩm</h3>
             </div>
+            {/* <Button color="primary" onClick={this.toggle} style={{ marginBottom: '1rem' }}>Toggle</Button> */}
             <ul className="nav-cate">
-
+            <li onClick={(data) => this.toggle(`collapse1`)}><Link to="#">Quần áo</Link></li>
+            <Collapse isOpen={this.state.collapse1}>
+            <ul style={{
+              paddingLeft:10
+            }}>
+            <li onClick={(data) => this.toggle(`collapse2`)}><Link to="#">Quần áo nam</Link></li>
+            <Collapse isOpen={this.state.collapse2}>
+            <li><Link to="#">Quần áo nữ</Link></li>
+            <li><Link to="#">hello3</Link></li>
+            </Collapse>
+            </ul>
+           
+            
+        </Collapse>
               {this.mapping(dataCate)}
             </ul>
+            <h3>Danh mục sản phẩm2</h3>
+           
+      
           </div>
 
         );

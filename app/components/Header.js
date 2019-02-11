@@ -168,6 +168,17 @@ class Header extends Component {
       return alert("No empty");
     }
   }
+  handleChangePasswordDisplay(){
+    var token = localStorage.getItem("tokenUser");
+    if(token){
+      var decoded = jwt.verify(token, 'toanpro');
+      if(!decoded || decoded.googleId || decoded.facebookId){
+        return null
+      }else if(decoded && !decoded.googleId && !decoded.facebookId){
+        return <li><Link to="/change-password">Đổi mật khẩu</Link></li>
+      }
+    }
+  }
   render() {
     var {dataUser} = this.state;
     var username = "Khach";
@@ -190,6 +201,7 @@ zIndex: 1000}} percent={this.state.isProcess.percent} strokeWidth="0.2" strokeCo
                     {dataUser?dataUser.username:null} <i className="fa fa-caret-down" /></button>
                   <ul className="dropdown-menu dropdown-menu-bizmart">
                     <li><Link to="/update-user">Cập nhật thông tin</Link></li>
+                    {this.handleChangePasswordDisplay()}
                     <li className="divider" />
                     <li><Link onClick={this.handleLogout} to="/">Đăng xuất</Link></li>
                   </ul>

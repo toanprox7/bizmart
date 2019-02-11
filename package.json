@@ -89,8 +89,7 @@
   },
   "scripts": {
     "debug": "node debug app.js",
-    "start": "node app.js & webpack -w",
-    "heroku-postbuild": "webpack"
+    "start": "node app.js & webpack -w"
   },
   "main": "app.js",
   "repository": {
@@ -121,8 +120,5 @@
     "webpack-dev-server": "^3.1.9"
   },
   "author": "toanamaster",
-  "license": "",
-  "engines": {
-    "node": "8.15.0"
-  }
+  "license": ""
 }

@@ -23,7 +23,7 @@ import Mails from "../admin/components/mails/Mails";
 import Banner from "../admin/components/banner/Banner";
 import CreateBanner from "../admin/components/banner/Create";
 import EditBanner from "../admin/components/banner/Edit";
-
+import ChangePasswordUser from "../components/changePassword";
 import Products from '../admin/components/products/Products';
 import UsersPage from '../admin/components/users/Users';
 import CreateForm from '../admin/components/categorys/components/Create';
@@ -72,6 +72,8 @@ class ContentRoot extends Component {
     
     <ProductRoute exact path="/products/*-:idCategory/:idPage/:price" component={ProductsRight} />
     <PostNewRoute exact path="/update-user" component={InfoUserRight} />
+    <PostNewRoute exact path="/change-password" component={ChangePasswordUser} />
+    
     <Route render={(props) => (
     <h1 style={{color:"blue"}}>Not found</h1>
     )} /> 

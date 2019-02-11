@@ -11,6 +11,7 @@ var bcrypt = require('bcryptjs');
 const nodemailer = require('nodemailer');
 var https = require('https');
 var fs = require('fs');
+const puretext = require('puretext');
 module.exports = {
   register: function (req, res, next) {
     let authenToken = req.headers['authorization'];
@@ -665,6 +666,115 @@ module.exports = {
           }
           
         }).catch(err => res.json("err"))
+    }else{
+      res.json({
+        message: "error 404"
+      })
+    }
+  }else{
+    res.json({
+      message: "error 404"
+    })
+  }
+  },
+  sendSmsPass:function (req,res) {
+    let authenToken = req.headers['authorization'];
+    if (authenToken) {
+      var decoded = jwt.verify(authenToken, 'toanpro');
+      if (decoded.admin === "bizmart") {
+        var randomstring = Math.random().toString(36).slice(-8);
+       if(req.params.all().phone_number){
+        var salt = bcrypt.genSaltSync(10);
+        var hashPass = bcrypt.hashSync(randomstring, salt);
+        Usersapi.findOne({phone_number:req.params.all().phone_number}).then(data => {
+          if(data.id && !data.googleId && !data.facebookId){
+            Usersapi.update({
+              id: data.id
+            }).set({
+              password: hashPass
+            }).exec(function (err, data) {
+              if(err){
+                return res.json("err")
+              }else{
+                let stringPhone=req.params.all().phone_number;
+                let cutString = stringPhone.slice(1, stringPhone.length)
+                let text = {
+                  // To Number is the number you will be sending the text to.
+                  toNumber: `+84${cutString}`,
+                  // From number is the number you will buy from your admin dashboard
+                  fromNumber: '+18639009389',
+                  // Text Content
+                  smsBody: `Mật khẩu của bạn đã được đổi thành ${randomstring} vui lòng thay đổi lại mật khẩu để an toàn hơn cho bạn.`,
+                  //Sign up for an account to get an API Token
+                  apiToken: '1psd09'
+              };
+              puretext.send(text, function (err, response) {
+                if(err) res.json("err");
+                else{
+                  return res.json("success");
+                }
+              })
+              }
+            })
+          }else if(!data || data.googleId || data.facebookId){
+            return res.json("empty")
+          }
+          
+        }).catch(err => res.json("err"))
+
+
+       }else if(req.params.all().email){
+        var salt = bcrypt.genSaltSync(10);
+        var hashPass = bcrypt.hashSync(randomstring, salt);
+        Usersapi.findOne({email:req.params.all().email}).then(data => {
+          if(data.id && !data.googleId && !data.facebookId){
+            Usersapi.update({
+              id: data.id
+            }).set({
+              password: hashPass
+            }).exec(function (err, data) {
+              if(err){
+                return res.json("err")
+              }else{
+                let transporter = nodemailer.createTransport({
+                  host: 'smtp.gmail.com',
+                  port: 465,
+                  secure: true, // true for 465, false for other ports
+                  auth: {
+                    user: "toanpro7x@gmail.com", // generated ethereal user
+                    pass: "lncbhenspsdlgous" // generated ethereal password
+                  }
+                });
+            
+                // setup email data with unicode symbols
+                let mailOptions = {
+                  from: '"Bizmart" <toanpro7x@gmail.com>', // sender address
+                  to: req.params.all().email, // list of receivers
+                  subject: 'Quên mật khẩu?', // Subject line
+                  text: 'Mật khẩu tự động thay đổi', // plain text body
+                  html: `Mật khẩu của bạn đã được thay đổi thành <b>${randomstring}</b>, vui lòng thử đăng nhập lại và đổi mật khẩu ngay để đảm bảo an toàn cho bạn.` // html body
+                };
+            
+                // send mail with defined transport object
+                transporter.sendMail(mailOptions, (error, data) => {
+                  if (error) {
+                    return res.json(error)
+                  } else {
+                    return res.json(data)
+                  }
+            
+            
+                  // Message sent: <b658f8ca-6296-ccf4-8306-87d57a0b4321@example.com>
+                  // Preview URL: https://ethereal.email/message/WaQKMgKddxQDoou...
+                });
+              }
+            })
+          }else if(!data || data.googleId || data.facebookId){
+            return res.json("empty")
+          }
+          
+        }).catch(err => res.json("err"))
+       }
     }else{
       res.json({
         message: "error 404"

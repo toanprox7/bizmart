@@ -1,5 +1,8 @@
 *{margin: 0;
 padding: 0;}
+div.send-code > div.position-relative.form-group{
+    width:100%
+}
 .login .block-login .left-login .input-login .send-code input {
   display: flex;
   /* width: 90%; */

@@ -5,11 +5,12 @@ import axios from "axios";
 import jwt from "jsonwebtoken";
 import {connect} from "react-redux";
 import {fetchUserById} from "../../actions/usersAction";
-import {checkAuthenticate} from "../../actions/settings";
+import {checkAuthenticate,checkProcess} from "../../actions/settings";
 import FacebookLoginButton from '../register/FacebookLoginButton';
 import GoogleLoginButton from '../register/GoogleLoginButton';
 import { AvForm, AvField, AvGroup, AvInput, AvFeedback, AvRadioGroup, AvRadio, AvCheckboxGroup, AvCheckbox } from 'availity-reactstrap-validation';
 import { CustomInput } from 'reactstrap';
+// import {checkProcess} from "../../actions/settings";
 var bcrypt = require('bcryptjs');
 var tokenAuthorization = jwt.sign({ admin: 'bizmart' }, 'toanpro');
 class Login extends Component {
@@ -25,7 +26,10 @@ class Login extends Component {
       textToggle: "Quên mật khẩu",
       textShowTitle: "Đăng nhập tài khoản",
       activePhone:false,
-      activeEmail:false
+      activeEmail:false,
+      displayAlert:false,
+      timerCountDown:0,
+      disableTimer:false,
     }
   }
   componentWillMount() {
@@ -87,15 +91,17 @@ class Login extends Component {
 
   }
   handleForgetPass(e) {
-    if(validateEmail(this.refs.forgetPass.value) === true){
+    if(this.validateEmail(e.target.value) === true){
       this.setState({
-        email: this.refs.forgetPass.value,
+        forgetPass:e.target.value,
+        email: e.target.value,
         activeEmail:true,
         activePhone:false
       });
     }else{
       this.setState({
-        phone_number: this.refs.forgetPass.value,
+        forgetPass:e.target.value,
+        phone_number: e.target.value,
         activePhone:true,
         activeEmail:false
       });
@@ -103,18 +109,125 @@ class Login extends Component {
   }
 
   handleSendCode(){
-    const {activePhone,activeEmail,email,phone_number}=this.state;
-    if(activePhone === true){
-      axios.post("/usersapi/sendsmspass",{phone_number:phone_number},{
-        headers: {
-          'authorization':tokenAuthorization,
+    const {activePhone,activeEmail,email,phone_number,disableTimer}=this.state;
+    const self=this;
+    if(disableTimer === false){
+      self.props.checkProcess({
+        isLoading:true,
+        percent:30
+      });
+      if(activePhone === true){
+        axios.post("/usersapi/sendSmsPass",{phone_number:phone_number},{
+          headers: {
+            'authorization':tokenAuthorization,
+          }
+        }).then(res => {
+          // console.log(res.data);
+          if(res.data === "err" || res.data === "empty"){
+            self.setState({
+              displayAlert:true,
+              styleColor:"red",
+              alertForget:"Hệ thống đang bảo trì hoặc không tìm thấy dữ liệu, vui lòng thử lại..."
+            })
+          }else{
+            self.intervalTimer()
+            self.setState({
+              // email:"",
+              // phone_number:"",
+              // activeEmail:false,
+              // activePhone:false,
+              displayAlert:true,
+              styleColor:"green",
+              alertForget:"Hệ thống đã gửi tới quý khách, vui lòng chờ trong giây lát ..."
+            })
+          }
+          self.props.checkProcess({
+            isLoading:false,
+            percent:100
+          });
+        }).catch(err => {
+          self.setState({
+            displayAlert:false,
+            styleColor:"red",
+            alertForget:"Hệ thống đang bảo trì hoặc không tìm thấy dữ liệu, vui lòng thử lại..."
+          })
+          self.props.checkProcess({
+            isLoading:false,
+            percent:100
+          });
         }
-      }).then(res => {
-        console.log(res.data);
-        
-      }).catch(err => console.log(err)
-      )
+        )
+      }else if(activeEmail === true){
+        axios.post("/usersapi/sendSmsPass",{email:email},{
+          headers: {
+            'authorization':tokenAuthorization,
+          }
+        }).then(res => {
+          // console.log(res.data);
+          if(res.data === "err" || res.data === "empty"){
+            self.setState({
+              displayAlert:false,
+              styleColor:"red",
+              alertForget:"Hệ thống đang bảo trì hoặc không tìm thấy dữ liệu, vui lòng thử lại..."
+            })
+          }else{
+            self.intervalTimer()
+            self.setState({
+              // email:"",
+              // phone_number:"",
+              // activeEmail:false,
+              // activePhone:false,
+              displayAlert:true,
+              styleColor:"green",
+              alertForget:"Hệ thống đã gửi tới quý khách, vui lòng chờ trong giây lát ..."
+            })
+          }
+          
+          self.props.checkProcess({
+            isLoading:false,
+            percent:100
+          });
+        }).catch(err => {
+          self.setState({
+            displayAlert:false,
+            styleColor:"red",
+            alertForget:"Hệ thống đang bảo trì hoặc không tìm thấy dữ liệu, vui lòng thử lại..."
+          })
+          self.props.checkProcess({
+            isLoading:false,
+            percent:100
+          });
+        }
+        )
+      }
+    }else if(disableTimer === true){
+      this.setState({
+        styleColor:"red",
+        displayAlert:true,
+        alertForget: `Vui lòng thử lại sau ${60-this.state.timerCountDown} nữa...`
+      });
     }
+   
+  }
+  intervalTimer(){
+    let {timerCountDown} = this.state;
+      this.setState({
+        intervalTimer:setInterval(() => {
+          this.setState({
+            timerCountDown:timerCountDown++,
+            disableTimer:true,
+            successPhone:null
+          })
+        if(timerCountDown > 60){
+          this.setState({
+            timerCountDown:0,
+            disableTimer:false,
+            successPhone:null
+          })
+          clearInterval(this.state.intervalTimer);
+        }
+        },1000)
+      })
   }
   // handleOnBlurEmail = () => {
   //   var patern = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -134,9 +247,12 @@ class Login extends Component {
   // }
 
   handleSubmitLogin = async (events, errors, value) => {
-    if (errors.length === 0) {
+
+    if (errors.length === 1 && errors[0] === "forgetPass") {
+
       if (this.state.email != "") {
         var self = this;
+      
         axios.post("/usersapi/login", { email: this.state.email, password: this.state.password, status: "active" },{
           headers: {
             'authorization':tokenAuthorization,
@@ -164,6 +280,7 @@ class Login extends Component {
           })
       }
       else if (this.state.phone_number != "") {
+        // console.log(this.state.phone_number,"phone");
         var self = this;
         axios.post("/usersapi/login", { phone_number: this.state.phone_number, password: this.state.password, status: "active" },{
           headers: {
@@ -213,7 +330,7 @@ class Login extends Component {
                     <Link to="/register"> Đăng ký tại đây !</Link>
                   </div>
                 </div>
-                <AvForm onSubmit={this.handleSubmitLogin}>
+                <AvForm onSubmit={(events, errors, value) => this.handleSubmitLogin(events, errors, value)}>
                   <div className="block-login">
                     <div className="row">
                       <div className="col-xs-12 col-sm-12 col-md-6 col-lg-6">
@@ -241,10 +358,11 @@ class Login extends Component {
 
                           <div style={{ display: this.state.displayForgetPass }} className="input-login">
                             <div className="send-code">
-                            <AvField name="forgetPass" ref="forgetPass" placeholder="Email hoặc số điện thoại của bạn" type="text" onChange={e => this.handleForgetPass(e)} validate={{
+                            <AvField className="input-forget-pass" name="forgetPass" value={this.state.forgetPass || ""} ref="forgetPass" placeholder="Email hoặc số điện thoại của bạn" type="text" onChange={e => this.handleForgetPass(e)} validate={{
                                 required: { value: true, errorMessage: 'Trường này không được để trống' },
                               }} />
-
+                              
+                              
                               {/* <input className={this.state.errFocusEmail} ref="forgetPass" name="forgetPass" type="text" onBlur={this.handleOnBlurEmail} onChange={e => this.handleForgetPass(e)} placeholder="Email hoặc số điện thoại của bạn" /> */}
                               <div 
                               className="button-SendSms"
@@ -253,6 +371,9 @@ class Login extends Component {
 
                             </div>
                             <span style={{ display: this.state.displayEmail }} className="errMsg">{this.state.errEmail}</span>
+                            {this.state.displayAlert===true?(<span style={{
+                                color:this.state.styleColor
+                              }}>{this.state.alertForget}</span>):null}
                           </div>
 
                           <div className="forget-or-help-login">
@@ -319,7 +440,8 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     },
     getUserById: (getId) => {
       dispatch(fetchUserById(getId))
-    }
+    },
+    checkProcess: dataProcess => dispatch(checkProcess(dataProcess))
   }
 }
 export default connect(null, mapDispatchToProps)(Login)
