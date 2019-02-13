@@ -118,7 +118,7 @@ class ConstantCategoryLeft extends Component {
         </Collapse>
               {this.mapping(dataCate)}
             </ul>
-            <h3>Danh mục sản phẩm2</h3>
+            {/* <h3>Danh mục sản phẩm2</h3> */}
            
       
           </div>

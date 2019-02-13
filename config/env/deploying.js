@@ -18,7 +18,7 @@ module.exports = {
    ***************************************************************************/
 
   models: {
-    connection: 'heroku_postgres',
+    connection: 'bizmart_mysql',
     migrate:'alter'
   },
 

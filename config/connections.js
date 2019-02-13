@@ -28,9 +28,9 @@ module.exports.connections = {
   * Installed by default.                                                    *
   *                                                                          *
   ***************************************************************************/
-  localDiskDb: {
-    adapter: 'sails-disk'
-  },
+  // localDiskDb: {
+  //   adapter: 'sails-disk'
+  // },
 
   /***************************************************************************
   *                                                                          *
@@ -40,13 +40,13 @@ module.exports.connections = {
   * Run: npm install sails-mysql@for-sails-0.12 --save                       *
   *                                                                          *
   ***************************************************************************/
-  // bizmart_mysql: {
-  //   adapter: 'sails-mysql',
-  //   host: 'localhost',
-  //   user: 'root', //optional
-  //   password: '123456', //optional
-  //   database: 'bizmart' //optional
-  // },
+  bizmart_mysql: {
+    adapter: 'sails-mysql',
+    host: 'localhost',
+    user: 'root', //optional
+    password: 'bizmart', //optional
+    database: 'bizmart' //optional
+  },
 
   /***************************************************************************
   *                                                                          *

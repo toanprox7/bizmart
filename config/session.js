@@ -87,8 +87,8 @@ module.exports.session = {
   *                                                                          *
   ***************************************************************************/
 
-  // adapter: 'mongo',
-  // url: 'mongodb://user:password@localhost:27017/dbname', // user, password and port optional
+  // adapter: 'sails-mysql',
+  // url: 'mysql://root:bizmart@localhost:3306/bizmart', // user, password and port optional
 
   /***************************************************************************
   *                                                                          *

@@ -89,7 +89,8 @@
   },
   "scripts": {
     "debug": "node debug app.js",
-    "start": "node app.js & webpack -w"
+    "start": "node app.js & webpack -w",
+    "build": "webpack"
   },
   "main": "app.js",
   "repository": {
@@ -117,7 +118,9 @@
     "scriptloader": "^1.1.2",
     "style-loader": "^0.18.2",
     "webpack": "^3.11.0",
-    "webpack-dev-server": "^3.1.9"
+    "webpack-cli": "^3.2.3",
+    "webpack-dev-server": "^3.1.9",
+    "webpack-merge": "^3.0.0"
   },
   "author": "toanamaster",
   "license": ""
