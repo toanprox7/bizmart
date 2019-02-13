@@ -102,20 +102,7 @@ class ConstantCategoryLeft extends Component {
             </div>
             {/* <Button color="primary" onClick={this.toggle} style={{ marginBottom: '1rem' }}>Toggle</Button> */}
             <ul className="nav-cate">
-            <li onClick={(data) => this.toggle(`collapse1`)}><Link to="#">Quần áo</Link></li>
-            <Collapse isOpen={this.state.collapse1}>
-            <ul style={{
-              paddingLeft:10
-            }}>
-            <li onClick={(data) => this.toggle(`collapse2`)}><Link to="#">Quần áo nam</Link></li>
-            <Collapse isOpen={this.state.collapse2}>
-            <li><Link to="#">Quần áo nữ</Link></li>
-            <li><Link to="#">hello3</Link></li>
-            </Collapse>
-            </ul>
-           
-            
-        </Collapse>
+          
               {this.mapping(dataCate)}
             </ul>
             {/* <h3>Danh mục sản phẩm2</h3> */}
